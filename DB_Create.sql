@@ -94,11 +94,26 @@ insert into Cartes values(5, 'olaf', 'red', 'fighter', 'gar3a', 74, 70, 60);
 insert into Cartes values(6, 'jinx', 'rose', 'marksman', 'loubia', 95, 25, 95);
 insert into Cartes values(7, 'syndra', 'violet', 'mage', 'jelbana', 80, 36, 73);
 
+insert into Decks values(1, 'Majmou3ato lmawt');
+insert into Decks values(2, 'Majmou3ato L7ayat');
+
+insert into Appartenance values(1,1, now());
+insert into Appartenance values(2,1, now());
+insert into Appartenance values(6,1, now());
+insert into Appartenance values(3,2, now());
+insert into Appartenance values(7,2, now());
+
 -- 1-
--- select * from Cartes where type='slayer';
+select * from Cartes where type='slayer';
 
 -- 2- 
--- select distinct id_carte from Cartes minus select distinct id_carte from Decks
+
+select distinct C.*
+from Cartes C
+left outer join Appartenance A
+on C.id_carte = A.id_carte
+where A.n_deck is NULL;
+
 
 
 
