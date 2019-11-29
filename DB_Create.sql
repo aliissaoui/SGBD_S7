@@ -117,6 +117,7 @@ insert into Possessioncartes values(7,'Fizzy',now(),NULL,NULL,1);
 insert into Possessioncartes values(5,'Alisrey7',now(),NULL,NULL,1);
 insert into Possessioncartes values(3,'Alisrey7',now(),NULL,NULL,2);
 insert into Possessioncartes values(7,'WearyStar111',now(),NULL,NULL,1);
+insert into Possessioncartes values(7,'Fizzy',now(),NULL,NULL,1);
 
 insert into Versions values(1, 1, '1950-10-10', 5, 90, 19);
 insert into Versions values(2, 2, '1950-10-10', 4, 230, 17);
@@ -125,6 +126,7 @@ insert into Versions values(4, 4, '1950-10-10', 1, 430, 16);
 insert into Versions values(5, 5, '2010-10-10', 5, 200, 29);
 insert into Versions values(6, 6, '1950-10-10', 3, 540, 33);
 insert into Versions values(7, 7, '1950-10-10', 7, 120, 30);
+
 
 
 -- 1-
