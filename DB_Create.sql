@@ -114,22 +114,9 @@ insert into Possessioncartes values(2,'BigShaq1208',now(),NULL,NULL,1);
 insert into Possessioncartes values(3,'Fizzy',now(),NULL,NULL,1);
 insert into Possessioncartes values(5,'Alisrey7',now(),NULL,NULL,1);
 insert into Possessioncartes values(7,'WearyStar111',now(),NULL,NULL,1);
+insert into Possessioncartes values(7,'Fizzy',now(),NULL,NULL,1);
 
 
-
-
-
-
--- 1-
-select * from Cartes where type='slayer';
-
--- 2- 
-
-select distinct C.*
-from Cartes C
-left outer join Appartenance A
-on C.id_carte = A.id_carte
-where A.n_deck is NULL;
 
 
 
