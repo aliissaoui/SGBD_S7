@@ -53,7 +53,7 @@ pseudonyme VARCHAR(40),
 FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme),
 date_possession DATETIME NOT NULL,
 methode_possession VARCHAR(20),
-date_non_possession DATETIME NOT NULL,
+date_non_possession DATETIME,
 etat SMALLINT UNSIGNED DEFAULT 1 NOT NULL
 );
 
@@ -102,6 +102,23 @@ insert into Appartenance values(2,1, now());
 insert into Appartenance values(6,1, now());
 insert into Appartenance values(3,2, now());
 insert into Appartenance values(7,2, now());
+
+insert into Joueurs values('BigShaq1208','HALA','Mehdi');
+insert into Joueurs values('Fizzy','FAIZ','Abderrahmanne');
+insert into Joueurs values('Alisrey7','ISSAOUI','Ali');
+insert into Joueurs values('WearyStar111','FERIAT','Abdessamad');
+insert into Joueurs values('B00S3AMY','BASTAMY','Oussama');
+
+insert into Possessioncartes values(1,'BigShaq1208',now(),NULL,NULL,1);
+insert into Possessioncartes values(2,'BigShaq1208',now(),NULL,NULL,1);
+insert into Possessioncartes values(3,'Fizzy',now(),NULL,NULL,1);
+insert into Possessioncartes values(5,'Alisrey7',now(),NULL,NULL,1);
+insert into Possessioncartes values(7,'WearyStar111',now(),NULL,NULL,1);
+
+
+
+
+
 
 -- 1-
 select * from Cartes where type='slayer';
