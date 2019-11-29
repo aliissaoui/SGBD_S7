@@ -85,7 +85,20 @@ FOREIGN KEY (n_deck) REFERENCES Decks(n_deck),
 nb_joueurs TINYINT
 );
 
+-- Insertion des carte pour exemple
+insert into Cartes values(1, 'akali', 'green', 'slayer', 'badenjan', 90, 40, 85);
+insert into Cartes values(2, 'teemo', 'orange', 'specialist', 'batata', 80, 30, 90);
+insert into Cartes values(3, 'yasuo', 'black', 'slayer', 'maticha', 90, 60, 70);
+insert into Cartes values(4, 'fizz', 'blue', 'slayer', 'khizo', 85, 20, 85);
+insert into Cartes values(5, 'olaf', 'red', 'fighter', 'gar3a', 74, 70, 60);
+insert into Cartes values(6, 'jinx', 'rose', 'marksman', 'loubia', 95, 25, 95);
+insert into Cartes values(7, 'syndra', 'violet', 'mage', 'jelbana', 80, 36, 73);
 
+-- 1-
+-- select * from Cartes where type='slayer';
+
+-- 2- 
+-- select distinct id_carte from Cartes minus select distinct id_carte from Decks
 
 
 
