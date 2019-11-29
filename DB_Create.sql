@@ -110,27 +110,57 @@ insert into Joueurs values('WearyStar111','FERIAT','Abdessamad');
 insert into Joueurs values('B00S3AMY','BASTAMY','Oussama');
 
 insert into Possessioncartes values(1,'BigShaq1208',now(),NULL,NULL,1);
-insert into Possessioncartes values(2,'BigShaq1208',now(),NULL,NULL,1);
-insert into Possessioncartes values(3,'Fizzy',now(),NULL,NULL,1);
+insert into Possessioncartes values(2,'BigShaq1208',now(),NULL,NULL,2);
+insert into Possessioncartes values(3,'Fizzy',now(),NULL,NULL,4);
+insert into Possessioncartes values(4,'Fizzy',now(),NULL,NULL,3);
+insert into Possessioncartes values(7,'Fizzy',now(),NULL,NULL,1);
 insert into Possessioncartes values(5,'Alisrey7',now(),NULL,NULL,1);
+insert into Possessioncartes values(3,'Alisrey7',now(),NULL,NULL,2);
 insert into Possessioncartes values(7,'WearyStar111',now(),NULL,NULL,1);
 
-
-
-
+insert into Versions values(1, 1, '1950-10-10', 5, 90, 19);
+insert into Versions values(2, 2, '1950-10-10', 4, 230, 17);
+insert into Versions values(3, 3, '1950-10-10', 2, 2, 101);
+insert into Versions values(4, 4, '1950-10-10', 1, 430, 16);
+insert into Versions values(5, 5, '2010-10-10', 5, 200, 29);
+insert into Versions values(6, 6, '1950-10-10', 3, 540, 33);
+insert into Versions values(7, 7, '1950-10-10', 7, 120, 30);
 
 
 -- 1-
-select * from Cartes where type='slayer';
+-- select * from Cartes where type='slayer';
 
 -- 2- 
 
-select distinct C.*
-from Cartes C
-left outer join Appartenance A
-on C.id_carte = A.id_carte
-where A.n_deck is NULL;
+-- select distinct C.*
+-- from Cartes C
+-- left outer join Appartenance A
+-- on C.id_carte = A.id_carte
+-- where A.n_deck is NULL;
 
 
+-- select J.pseudonyme, sum(V.cote * P.etat) as valeur
+-- from Versions V 
+-- 	inner join Cartes C 
+-- 		on C.id_carte = V.id_carte
+--     inner join PossessionCartes P
+-- 		on P.id_carte = C.id_carte
+-- 	inner join Joueurs J
+-- 		on J.pseudonyme = P.pseudonyme
+-- 	group by J.pseudonyme
+--     order by valeur desc;
 
+-- select J.pseudonyme, count(C.id_carte) as rares
+-- from Versions V
+-- 	inner join Cartes C 
+-- 		on C.id_carte = V.id_carte
+--     inner join PossessionCartes P
+-- 		on P.id_carte = C.id_carte
+-- 	inner join Joueurs J
+-- 		on J.pseudonyme = P.pseudonyme
+-- 	where 
+-- 		V.date_impression > '2000-01-01' 
+--     or
+-- 		V.tirage < 100
+-- 	group by J.pseudonyme;
 
