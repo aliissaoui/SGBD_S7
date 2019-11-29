@@ -12,7 +12,7 @@ attaque SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
 defense SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
 rapidite SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
 victories SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
-FOREIGN KEY (deck) REFERENCES Decks(n_deck)
+FOREIGN KEY (n_deck) REFERENCES Decks(n_deck)
 );
 
 CREATE TABLE IF NOT EXISTS Decks (
@@ -26,7 +26,7 @@ date_impression DATETIME NOT NULL,
 rendu SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
 tirage SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
 cote SMALLINT UNSIGNED NOT NULL,
-FOREIGN KEY (carte) REFERENCES Cartes(id_carte)
+FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte)
 );
 
 CREATE TABLE IF NOT EXISTS Joueurs (
@@ -36,8 +36,8 @@ prenom VARCHAR(40) NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS Possessioncartes (
-FOREIGN KEY (carte) REFERENCES Cartes(id_carte) PRIMARY KEY,
-FOREIGN KEY (joueur) REFERENCES Joueurs(pseudonyme) PRIMARY KEY,
+FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) PRIMARY KEY,
+FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) PRIMARY KEY,
 date_possession DATETIME NOT NULL,
 methode_possession VARCHAR(20),
 date_non_possession DATETIME NOT NULL,
@@ -45,8 +45,8 @@ etat SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS Possessiondecks (
-FOREIGN KEY (deck) REFERENCES Decks(n_deck) PRIMARY KEY,
-FOREIGN KEY (joueur) REFERENCES Joueurs(pseudonyme) PRIMARY KEY
+FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) PRIMARY KEY,
+FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS Parties (
@@ -58,9 +58,9 @@ resultat VARCHAR(40)
 );
 
 CREATE TABLE IF NOT EXISTS Partiesjouees (
-FOREIGN KEY (partie) REFERENCES Parties(n_partie) PRIMARY KEY,
-FOREIGN KEY (joueur) REFERENCES Joueurs(pseudonyme) PRIMARY KEY,
-FOREIGN KEY (deck) REFERENCES Decks(n_deck)
+FOREIGN KEY (n_partie) REFERENCES Parties(n_partie) PRIMARY KEY,
+FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) PRIMARY KEY,
+FOREIGN KEY (n_deck) REFERENCES Decks(n_deck)
 );
 
 
