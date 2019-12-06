@@ -2,10 +2,10 @@
 
 -- CONSULTATION
 
-select *
-from Cartes
-where type = "MONSTER";
+-- 1-
+select * from Cartes where type='slayer';
 
+-- 2- 
 
 select distinct C.*
 from Cartes C
@@ -13,13 +13,14 @@ left outer join Appartenance A
 on C.id_carte = A.id_carte
 where A.n_deck is NULL;
 
+-- 3
 
-
-select distinct JOUEURS.*
-from JOUEURS J
-left outer join PARTIESJOUEES P
-on J.PSEUDONYME = P.PSEUDONYME
+select distinct J.*
+from Joueurs J
+left outer join Partiesjouees P
+on J.pseudonyme = P.pseudonyme
 where P.n_partie is NULL;
+
 
 
 -- Statistiques
@@ -40,6 +41,15 @@ from Versions V
 		on J.pseudonyme = P.pseudonyme
 	group by J.pseudonyme
     order by valeur desc;
+
+
+-- 3
+
+select C.*, count(P.id_carte) as nombre_possession
+from Cartes C
+inner join Possessioncartes P
+on C.id_carte = P.id_carte
+group by P.id_carte;
         
         
 -- 4
@@ -57,19 +67,19 @@ from Versions V
 		V.tirage < 100
 	group by J.pseudonyme;
 
--- select distinct Joueurs.*
--- from Joueurs J
--- left outer join Partiejouees P
--- on J.pseudonyme = P.pseudonyme
--- where P.n_partie is NULL;
+-- 5
 
--- -- STATS
-
-
--- -- 3
--- select C.*, count(P.id_carte) as nombre_possession
--- from Cartes C
--- inner join Possessioncartes P
--- on C.id_carte = P.id_carte
--- group by P.id_carte;
-
+select famille,
+	case
+		when greatest(attaque,defense,rapidite)=attaque
+        then 'Attaque'
+        when greatest(attaque,defense,rapidite)=defense
+        then 'Defense'
+        when greatest(attaque,defense,rapidite)=rapidite
+        then 'Rapidite'
+	end as Specialite
+	from(
+		select famille, max(attaque) as attaque, max(defense) as defense, max(rapidite) as rapidite
+		from Cartes
+		group by famille
+) as T;
