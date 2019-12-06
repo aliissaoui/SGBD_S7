@@ -91,8 +91,10 @@ insert into Cartes values(2, 'teemo', 'orange', 'specialist', 'batata', 80, 30, 
 insert into Cartes values(3, 'yasuo', 'black', 'slayer', 'maticha', 90, 60, 70);
 insert into Cartes values(4, 'fizz', 'blue', 'slayer', 'khizo', 85, 20, 85);
 insert into Cartes values(5, 'olaf', 'red', 'fighter', 'gar3a', 74, 70, 60);
-insert into Cartes values(6, 'jinx', 'rose', 'marksman', 'loubia', 95, 25, 95);
-insert into Cartes values(7, 'syndra', 'violet', 'mage', 'jelbana', 80, 36, 73);
+insert into Cartes values(6, 'jinx', 'rose', 'marksman', 'loubia', 96, 98, 95);
+insert into Cartes values(7, 'jinn', 'roubya', 'marksman', 'loubia', 30, 25, 97);
+insert into Cartes values(8, 'nn', 'november', 'gold', 'digger', 15, 25, 95);
+insert into Cartes values(9, 'syndra', 'violet', 'mage', 'jelbana', 80, 36, 73);
 
 insert into Decks values(1, 'Majmou3ato lmawt');
 insert into Decks values(2, 'Majmou3ato L7ayat');
@@ -153,17 +155,33 @@ insert into Versions values(7, 7, '1950-10-10', 7, 120, 30);
 -- 	group by J.pseudonyme
 --     order by valeur desc;
 
-select J.pseudonyme, count(C.id_carte) as rares
-from Versions V
-	inner join Cartes C 
-		on C.id_carte = V.id_carte
-    inner join PossessionCartes P
-		on P.id_carte = C.id_carte
-	inner join Joueurs J
-		on J.pseudonyme = P.pseudonyme
-	where 
-		V.date_impression > '2000-01-01' 
-    or
-		V.tirage < 100
-	group by J.pseudonyme;
+-- select J.pseudonyme, count(C.id_carte) as rares
+-- from Versions V
+-- 	inner join Cartes C 
+-- 		on C.id_carte = V.id_carte
+--     inner join PossessionCartes P
+-- 		on P.id_carte = C.id_carte
+-- 	inner join Joueurs J
+-- 		on J.pseudonyme = P.pseudonyme
+-- 	where 
+-- 		V.date_impression > '2000-01-01' 
+--     or
+-- 		V.tirage < 100
+-- 	group by J.pseudonyme;
+
+
+select famille,
+	case
+		when greatest(attaque,defense,rapidite)=attaque
+        then 'Attaque'
+        when greatest(attaque,defense,rapidite)=defense
+        then 'Defense'
+        when greatest(attaque,defense,rapidite)=rapidite
+        then 'Rapidite'
+	end as Specialite
+	from(
+		select famille, max(attaque) as attaque, max(defense) as defense, max(rapidite) as rapidite
+		from Cartes
+		group by famille
+) as T;
 
