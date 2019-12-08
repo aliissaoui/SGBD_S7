@@ -58,11 +58,11 @@
                         <li class="nav-header">
                             <h4>Statistiques</h4>
                         </li>
-                        <li><a href="#">Joueurs avec nombre de cartes qu'ils possèdent</a></li>
-                        <li><a href="#">Joueurs classé par valeur de collection</a></li>
-                        <li><a href="#">Cartes avec nombre des joueurs qui l'utilisent</a></li>
-                        <li><a href="#">Joueurs possédant le plus de cartes rares</a></li>
-                        <li><a href="#">Famille de carte</a></li>
+                        <li><a href="#" id="pCards">Joueurs avec nombre de cartes qu'ils possèdent</a></li>
+                        <li><a href="#" id="pValues">Joueurs classé par valeur de collection</a></li>
+                        <li><a href="#" id="cPlayers">Cartes avec nombre des joueurs qui l'utilisent</a></li>
+                        <li><a href="#" id="pRare">Joueurs possédant le plus de cartes rares</a></li>
+                        <li><a href="#" id="cardsFamily">Famille de carte</a></li>
                     </ul>
                 </div>
                 <!--/.well -->
@@ -74,11 +74,19 @@
                     <p>Gestion des cartes à jouer au sein de la
                         communauté de joueurs/collectionneurs</p>
                 </div>
+                <div id="welcome"> <h2> Bienvenu dans le service des cartes. </h2></div>
+                <div id="cslt"> <h3 >Consultations</h3></div>
                 <div id="CardType"></div>
                 <div id="CardNoDeck"></div>
                 <div id="PlayerNoGame"></div>
                 <hr>
-
+                <div id="sts"><h3>Statistiques</h3></div>
+                <div id="PCards"></div>
+                <div id="PValues"></div>
+                <div id="CPlayers"></div>
+                <div id="PRare"></div>
+                <div id="CardsFamily"></div>
+                <hr>
                 <footer>
                     <div class="container-fluid padding">
                         <p>HALA Mehdi, ISSAOUI Ali, BOUTGAYOUT Imad, FAIZ Abderrahmane 2019</p>
@@ -90,11 +98,23 @@
 </body>
 
 <script>
-    $("#CardType").hide();
-    $("#CardNoDeck").hide();
-    $("#PlayerNoGame").hide();
+
+    var hd = function(keep){
+        var funcs = new Array("#CardType","#CardNoDeck", "#PlayerNoGame", "#PCards", "#PValues", "#CPlayers", "#PRare", "#CardsFamily");
+        funcs.forEach(elem => { if ( elem != keep ){
+                                    $(elem).hide();
+                                }})
+    }
+
+    hd("all");
+    $("#cslt").hide();
+    $("#sts").hide();
 
     $("#cardType").click(function() {
+        $("#welcome").hide();
+        $("#cslt").show();
+        $("#sts").hide();
+        hd("CardType");
         $('#CardType').toggle();
         $("#CardType").html("<form id='ID_FORMULAIRE'> <input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> </form>")
         $("#ty").click(function() {
@@ -105,13 +125,67 @@
     });
 
     $("#cardNoDeck").click(function() {
+        $("#welcome").hide();
+        $("#cslt").show();
+        $("#sts").hide();
+        hd("cardNoDeck");
         $('#CardNoDeck').toggle();
         $("#CardNoDeck").html("<h4>cartes n'appartenants à aucune main:</h4> <?php cardnDeck() ?>")
     });
 
     $("#playerNoGame").click(function() {
+        $("#welcome").hide();
+        $("#cslt").show();
+        $("#sts").hide();
+        hd("#playerNoGame");
         $('#PlayerNoGame').toggle();
         $("#PlayerNoGame").html("<h4>Les joueurs n'ayant aucune partie:</h4> <?php pWithoutGame() ?>")
+    });
+
+    $("#pCards").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").show();
+        hd("#pCards");
+        $('#PCards').toggle();
+        $('#PCards').html("<h4>Les cartes avec le nombre de joueurs qui les utilisent:</h4> <?php playersCards() ?>");
+    });
+
+    $("#pValues").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").show();
+        hd("#pValues");
+        $('#PValues').toggle();
+        $("#PValues").html("<h4>Les joueurs avec les valeurs de leurs cartes:</h4> <?php playersValues() ?>")
+
+    });
+
+    $("#cPlayers").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").show();
+        hd("#cPlayers");
+        $('#CPlayers').toggle();
+        $("#CPlayers").html("<h4>Les cartes avec le nombre de joueurs qui l'utilisent:</h4> <?php cardsPlayers() ?>")
+    });
+
+    $("#pRare").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").show();
+        hd("#pRare");
+        $('#PRare').toggle();
+        $("#PRare").html("<h4>Les joueurs avec leurs cartes rares:</h4> <?php playersRare() ?>")
+    });
+
+    $("#cardsFamily").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").show();
+        hd("#cardsFamily");
+        $('#CardsFamily').toggle();
+        $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
     });
 </script>
 <!-- Le styles -->
@@ -143,7 +217,16 @@
     }
 
     table {
-         border-collapse: collapse;
+        width: 30%
+    }
+
+    th {
+        font-size: 17px;
+        color: #5a5a5a;
+    }
+
+    /* table {
+        border-collapse: collapse;
         border: 1px solid #588c7e;
         width: 75%;
         color: #588c7e;
@@ -151,9 +234,14 @@
         border-color: #588c7e;
     }
 
+    th {
+        background-color: #989898;
+        color: white
+    }
+
     tr:nth-child(even) {
         background-color: #f2f2f2
-    }
+    } */
 </style>
 
 
