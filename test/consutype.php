@@ -29,10 +29,9 @@ tr:nth-child(even) {background-color: #f2f2f2}
 
 <?php
 
-$sql = 'select * from Cartes where type = "' . $_GET['type'] . '"';
 
-$showtables= mysqli_query($link,$sql);
-echo display_data($showtables);
+
+
 
 ?>
 </body>

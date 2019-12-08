@@ -1,5 +1,5 @@
 <?php 
-$link = mysqli_connect("localhost", "root", "", "jeu_cartes");
+$link = mysqli_connect("localhost", "root", "", "Jeu_Cartes");
 echo "<br>";
 if (!$link)
 {
