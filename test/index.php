@@ -63,6 +63,14 @@
                         <li><a href="#" id="cPlayers">Cartes avec nombre des joueurs qui l'utilisent</a></li>
                         <li><a href="#" id="pRare">Joueurs possédant le plus de cartes rares</a></li>
                         <li><a href="#" id="cardsFamily">Famille de carte</a></li>
+                        <li class="nav-header">
+                            <h4>Mise à jour</h4>
+                        </li>
+                        <li><a href="#" id="addPlayer">Ajouter/Supprimer Un joueur</a></li>
+                        <li><a href="#" id="addCardPlayer">Ajouter/Supprimer carte à un joueur</a></li>
+                        <li><a href="#" id="addGamePlayer">Ajouter/Supprimer une partie à un joueur</a></li>
+                        <li><a href="#" id="pRare">Ajouter/Supprimer une main à un joueur</a></li>
+                        <li><a href="#" id="cardsFamily">Ajouter/Supprimer une carte à une main d'un joueur</a></li>
                     </ul>
                 </div>
                 <!--/.well -->
@@ -74,41 +82,169 @@
                     <p>Gestion des cartes à jouer au sein de la
                         communauté de joueurs/collectionneurs</p>
                 </div>
-                <div id="welcome"> <h2> Bienvenu dans le service des cartes. </h2></div>
-                <div id="cslt"> <h3 >Consultations</h3></div>
+                <div id="welcome">
+                    <h2> Bienvenu dans le service des cartes. </h2>
+                </div>
+                <div id="cslt">
+                    <h3>Consultations</h3>
+                </div>
                 <div id="CardType"></div>
                 <div id="CardNoDeck"></div>
                 <div id="PlayerNoGame"></div>
                 <hr>
-                <div id="sts"><h3>Statistiques</h3></div>
+                <div id="sts">
+                    <h3>Statistiques</h3>
+                </div>
                 <div id="PCards"></div>
                 <div id="PValues"></div>
                 <div id="CPlayers"></div>
                 <div id="PRare"></div>
                 <div id="CardsFamily"></div>
+
                 <hr>
-                <footer>
-                    <div class="container-fluid padding">
-                        <p>HALA Mehdi, ISSAOUI Ali, BOUTGAYOUT Imad, FAIZ Abderrahmane 2019</p>
-                    </div>
-                </footer>
+                <div id="maj">
+                    <h3>Mise à jours</h3>
+                </div>
+                <div id="AddPlayer" style="text-align: center;">
+                    <form>
+                        <h3>Ajouter un Joueur</h3>
+                        <div>
+                            <label for="Nom">Nom*: </label>
+                            <input type="text" name="PlayerName" id="PlayerName" required>
+                        </div>
+                        <div>
+                            <label for="Prenom">Prenom*: </label>
+                            <input type="text" name="PlayerFirstName" id="PlayerFirstName" required>
+                        </div>
+                        <div>
+                            <label for="PlayerPseudo">Pseudo*: </label>
+                            <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
+                        </div>
+                        <div>
+                            <input type="submit" value="Ajouter">
+                        </div>
+                    </form>
+                </div>
+                <div id="AddCardPlayer" style="text-align: center;">
+                    <form>
+                        <h3>Ajouter une Carte à un joueur</h3>
+                        <div>
+                            <label for="NoPlayerCNamem">Nom du joueur*: </label>
+                            <input type="text" name="PlayerCName" id="PlayerCName" required>
+                        </div>
+                        <div>
+                            <label for="CardTitle">Titre de la carte*:</label>
+                            <input type="text" name="CardTitle" id="CardTitle" required> </label>
+                        </div>
+                        <div>
+                            <label for="CardDescription">Description de la carte*:</label>
+                            <input type="text" name="CardDescription" id="CardDescription" required> </label>
+                        </div>
+                        <div>
+                            <label for="CardType">Type de la carte*: </label>
+                            <input type="text" name="CardType" id="CardType" required>
+                        </div>
+                        <h5>
+                            Caractéristiques de la carte:
+                        </h5>
+                        <div>
+                            <label for="Attack">Attaque*: </label>
+                            <input type="number" name="Attack" id="Attack" required>
+                        </div>
+                        <div>
+                            <label for="Defence">Défense*: </label>
+                            <input type="number" name="Defence" id="Defence" required>
+                        </div>
+                        <div>
+                            <label for="Speed">Rapidité*: </label>
+                            <input type="number" name="Speed" id="Speed" required>
+                        </div>
+                        <h5>
+                            Autres options:
+                        </h5>
+                        <div>
+                            <label for="CardDeck">le nom de la main si la carte appartient à une main:
+                            </label>
+                            <input type="text" name="CardDeck" id="CardDeck">
+                        </div>
+                        <div>
+                            <input type="submit" value="Ajouter">
+                        </div>
+
+                    </form>
+                </div>
+                <div id="AddGamePlayer" style="text-align: center;">
+                    <form>
+                        <h3>Ajouter une Partie à un joueur</h3>
+                        <div>
+                            <label for="PseudoPGame">Pseudo du joueur*: </label>
+                            <input type="text" name="PseudoPGame" id="PseudoPGame" required>
+                        </div>
+                        <div>
+                            <label for="DeckGame">Le Nom de la main utilisée*:</label>
+                            <input type="text" name="DeckGame" id="DeckGame" required>
+                        </div>
+                        <div>
+                            <label for="GameDate">Date de la partie*:</label>
+                            <input type="date" name="GameDate" id="GameDate" required>
+                        </div>
+                        <div>
+                            <label for="GamePlace">Lieu de la partie*: </label>
+                            <input type="text" name="GamePlace" id="GamePlace" required>
+                        </div>
+                        <div>
+                            <label for="GameType">Type de la partie*: </label>
+                            <input type="text" name="GameType" id="GameType" required>
+                        </div>
+
+                        <div>
+                            <label for="GameResult">Résultat de la partie*:</label>
+                                <select name="GameResult" id="GameResult" required>
+                                    <option value="yes">Gagnée</option>
+                                    <option value="No">Perdu</option> </select>
+                        </div>
+
+                        <div>
+                            <label for="Opponent">Adversaire: </label>
+                            <input type="text" name="Opponent" id="Opponent" required>
+                        </div>
+                        <div>
+                            <input type="submit" value="Ajouter">
+                        </div>
+                    </form>
+                </div>
+                <div id="PRare" style="text-align: center;"></div>
+                <div id="CardsFamily" style="text-align: center;"></div>
+
+                <hr>
 
             </div>
 
+        </div>
+    </div>
+    <footer>
+        <div class="container-fluid padding">
+            <p>HALA Mehdi, ISSAOUI Ali, BOUTGAYOUT Imad, FAIZ Abderrahmane 2019</p>
+        </div>
+    </footer>
 </body>
 
-<script>
 
-    var hd = function(keep){
-        var funcs = new Array("#CardType","#CardNoDeck", "#PlayerNoGame", "#PCards", "#PValues", "#CPlayers", "#PRare", "#CardsFamily");
-        funcs.forEach(elem => { if ( elem != keep ){
-                                    $(elem).hide();
-                                }})
+
+<script>
+    var hd = function(keep) {
+        var funcs = new Array("#CardType", "#CardNoDeck", "#PlayerNoGame", "#PCards", "#PValues", "#CPlayers", "#PRare", "#CardsFamily", "#AddPlayer", "#AddCardPlayer", "#AddGamePlayer");
+        funcs.forEach(elem => {
+            if (elem != keep) {
+                $(elem).hide();
+            }
+        })
     }
 
     hd("all");
     $("#cslt").hide();
     $("#sts").hide();
+    $("#maj").hide();
 
     $("#cardType").click(function() {
         $("#welcome").hide();
@@ -116,7 +252,7 @@
         $("#sts").hide();
         hd("CardType");
         $('#CardType').toggle();
-        $("#CardType").html("<form id='ID_FORMULAIRE'> <input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> </form>")
+        $("#CardType").html("<div style='text-align: center;'><form id='ID_FORMULAIRE'><h4>Veuillez entre le nom du type:<input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> <h4></form></div>")
         $("#ty").click(function() {
             var valeur = document.forms['ID_FORMULAIRE'].elements['type'].value;
             var tab = "<?php consltType("slayer") ?>"
@@ -187,6 +323,28 @@
         $('#CardsFamily').toggle();
         $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
     });
+
+    $("#addPlayer").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").hide();
+        hd("#AddPlayer");
+        $('#AddPlayer').toggle();
+    });
+    $("#addCardPlayer").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").hide();
+        hd("#AddCardPlayer");
+        $('#AddCardPlayer').toggle();
+    });
+    $("#addGamePlayer").click(function() {
+        $("#welcome").hide();
+        $("#cslt").hide();
+        $("#sts").hide();
+        hd("#AddGamePlayer");
+        $('#AddGamePlayer').toggle();
+    });
 </script>
 <!-- Le styles -->
 <link href="../assets/css/bootstrap.css" rel="stylesheet">
@@ -211,9 +369,16 @@
     }
 
     footer {
+
         background-color: grey;
         color: white;
-        width: 100%
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+    }
+
+    input {
+        left: 440;
     }
 
     table {
