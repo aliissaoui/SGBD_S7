@@ -97,8 +97,9 @@
                 <div id="PRare"></div>
                 <div id="CardsFamily"></div>
                 <div id="AddPlayer" style="text-align: center;">
-                    <form>
+                    <form id="addPForm">
                         <h3>Ajouter un Joueur</h3>
+
                         <div>
                             <label for="Nom">Nom*: </label>
                             <input type="text" name="PlayerName" id="PlayerName" required>
@@ -112,15 +113,16 @@
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
-                            <input type="submit" value="Ajouter">
+                            <a id='addPButton' class='button-class'>Ajouter</a>                        
                         </div>
                     </form>
+
                 </div>
                 <div id="AddCardPlayer" style="text-align: center;">
-                    <form>
+                    <form id="addCForm">
                         <h3>Ajouter une Carte à un joueur</h3>
                         <div>
-                            <label for="NoPlayerCNamem">Nom du joueur*: </label>
+                            <label for="NoPlayerCName">Nom du joueur*: </label>
                             <input type="text" name="PlayerCName" id="PlayerCName" required>
                         </div>
                         <div>
@@ -165,7 +167,7 @@
                     </form>
                 </div>
                 <div id="AddGamePlayer" style="text-align: center;">
-                    <form>
+                    <form id="addGForm">
                         <h3>Ajouter une Partie à un joueur</h3>
                         <div>
                             <label for="PseudoPGame">Pseudo du joueur*: </label>
@@ -219,6 +221,9 @@
             <p>HALA Mehdi, ISSAOUI Ali, BOUTGAYOUT Imad, FAIZ Abderrahmane 2019</p>
         </div>
     </footer>
+
+
+
 </body>
 
 
@@ -249,7 +254,6 @@
             else {
                 var tab = "<?php if (isset($_GET['type'])) consltType($_GET['type']) ?>"
                 $("#CardType").html("<h4>Les cartes de type:" + type + "</h4>" + tab);
-                console.log(type.lenght);
             }
             break;
         case "cardNoDeck":
@@ -282,8 +286,17 @@
             $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
             break;
         case ("addPlayer"):
-            $("#welcome").html("<h3>Mise à Jours</h3>")
-            $('#AddPlayer').show();
+            $("#welcome").html("<h3>Mise à jours</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'playerName';
+            var url = window.location.href;
+            if(url.indexOf('&'+field+'=') == -1){
+                $("#welcome").html("<h3>Mise à Jours</h3>")
+                $('#AddPlayer').show();
+            }
+            else {
+                var add = "<?php if(isset($_GET['playerName']) && isset($_GET['playerFirstName']) && isset($_GET['playerPseudo'])) addPlayer($_GET['playerName'], $_GET['playerFirstName'], $_GET['playerPseudo']);?>"
+            }
             break;
         case ("addCardPlayer"):
             $("#welcome").html("<h3>Mise à Jours</h3>")
@@ -298,10 +311,16 @@
     $("#ty").click(function() {
         var valeur = document.forms['ID_FORMULAIRE'].elements['type'].value;
         document.location.href = '?page=cardType&type=' + valeur;
-        // $("#CardType").html("<h4>Les cartes de type: " + valeur + "</h4>" + tab);
-        // $("#welcome").hide();
-        console.log("hehe");
     });
+
+    $('#addPButton').click(function() {
+        var nom = document.forms['addPForm'].elements['PlayerName'].value;
+        var prenom = document.forms['addPForm'].elements['PlayerFirstName'].value;
+        var pseudo = document.forms['addPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addPlayer&playerName='+ nom+'&playerFirstName='+prenom+'&playerPseudo='+pseudo;
+        alert("Player added");
+    });
+
 </script>
 
 <!-- Le styles -->

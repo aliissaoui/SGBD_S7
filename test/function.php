@@ -28,13 +28,7 @@ function display_data($data)
     echo $output;
 }
 
-function consltType($t){
-    global $link;
-    $sql = 'select * from Cartes where type = "' . $t . '"';
-    $showtables= mysqli_query($link,$sql);
-    echo display_data($showtables);
 
-}
 
 function pWithoutGame()
 {
@@ -145,6 +139,21 @@ function cardsFamilies()
         ");
     echo display_data($showtables);
 }
+
+function consltType($t){
+    global $link;
+    $sql = 'select * from Cartes where type = "' . $t . '"';
+    $showtables= mysqli_query($link,$sql);
+    echo display_data($showtables);
+
+}
+
+function addPlayer($name, $firstName, $pseudo)
+{
+    global $link;
+    $sql = " insert into Joueurs values('".$pseudo."','".$name."','".$firstName."') ";
+    mysqli_query($link,$sql);
+}   
 
 
 ?>
