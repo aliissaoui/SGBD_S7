@@ -153,7 +153,14 @@ function addPlayer($name, $firstName, $pseudo)
     global $link;
     $sql = " insert into Joueurs values('".$pseudo."','".$name."','".$firstName."') ";
     mysqli_query($link,$sql);
-}   
+}
+
+function addCard($id_carte, $titre, $description, $type, $famille, $attaque, $defense, $rapidite)
+{
+    global $link;
+    $sql = " insert into cartes values('".$id_carte."','".$titre."','".$description."','".$type."','".$famille."','".$attaque."','"$defense"','"$rapidite"') ";
+    mysqli_query($link,$sql);
+}
 
 
 ?>
