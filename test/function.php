@@ -158,88 +158,88 @@ function addPlayer($name, $firstName, $pseudo)
 function addCard($titre, $description, $type, $famille, $attaque, $defense, $rapidite)
 {
     global $link;
-    $sql = " insert into cartes (titre, description, type, famille, attaque, defense, rapidite) values('".$titre."','".$description."','".$type."','".$famille."','".$attaque."','".$defense."','".$rapidite."') ";
+    $sql = " insert into Cartes (titre, description, type, famille, attaque, defense, rapidite) values('".$titre."','".$description."','".$type."','".$famille."','".$attaque."','".$defense."','".$rapidite."') ";
     mysqli_query($link,$sql);
 }
 
 function addParty($date, $lieu, $type, $resultat)
 {
     global $link;
-    $sql = " insert into parties (date, lieu, type, resultat) values('".$date."','".$lieu."','".$type."','".$resultat."') ";
+    $sql = " insert into Parties (date, lieu, type, resultat) values('".$date."','".$lieu."','".$type."','".$resultat."') ";
     mysqli_query($link,$sql);
 }
 
 function addDeck($nom)
 {
     global $link;
-    $sql = " insert into decks (nom) values('".$nom."') ";
+    $sql = " insert into Decks (nom) values('".$nom."') ";
     mysqli_query($link,$sql);
 }
 
 function addVersion($date_impression, $rendu, $tirage, $cote)
 {
     global $link;
-    $sql = " insert into versions (date_impression, rendu, tirage, cote) values('".$date_impression."','".$rendu."','".$tirage."','".$cote."' ) ";
+    $sql = " insert into Versions (date_impression, rendu, tirage, cote) values('".$date_impression."','".$rendu."','".$tirage."','".$cote."' ) ";
     mysqli_query($link,$sql);
 }
 
 function addAppartenance($id_carte, $n_deck, $date_ajout)
 {
     global $link;
-    $sql = "insert into  appartenance values('".$id_carte."','".$n_deck."','".$date_ajout."') ";
+    $sql = "insert into  Appartenance values('".$id_carte."','".$n_deck."','".$date_ajout."') ";
     mysqli_query($link,$sql);
 }
 
 function addPossesiondecks($n_deck, $pseudonyme, $date_possession)
 {
     global $link;
-    $sql = "insert into  possessiondecks values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
+    $sql = "insert into  Possessiondecks values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
     mysqli_query($link,$sql);
 }
 
 function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $date_non_possession, $etat)
 {
     global $link;
-    $sql = "insert into  possessioncartes values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
+    $sql = "insert into  Possessioncartes values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
     mysqli_query($link,$sql);
 }
 
 function addPartiesjouees($n_partie, $pseudonyme, $n_deck, $nb_joueurs)
 {
     global $link;
-    $sql = "insert into  partiesjouees values('".$n_partie."','".$pseudonyme."','".$n_deck."','".$nb_joueurs."') ";
+    $sql = "insert into  Partiesjouees values('".$n_partie."','".$pseudonyme."','".$n_deck."','".$nb_joueurs."') ";
     mysqli_query($link,$sql);
 }
 
-function Players()
+function players()
 {
     global $link;
     $sql = "select distinct * from joueurs";
     mysqli_query($link,$sql);
 }
 
-function Cartes()
+function cartes()
 {
     global $link;
     $sql = "select distinct * from cartes";
     mysqli_query($link,$sql);
 }
 
-function Decks()
+function decks()
 {
     global $link;
     $sql = "select distinct * from decks";
     mysqli_query($link,$sql);
 }
 
-function Parties()
+function parties()
 {
     global $link;
     $sql = "select distinct * from parties";
     mysqli_query($link,$sql);
 }
 
-function Versions()
+function versions()
 {
     global $link;
     $sql = "select distinct * from versions";
