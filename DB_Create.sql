@@ -112,14 +112,14 @@ insert into Joueurs values('WearyStar111','FERIAT','Abdessamad');
 insert into Joueurs values('B00S3AMY','BASTAMY','Oussama');
 insert into Joueurs values('Relayys','BOUTGAYOUT','Imad');
 
-insert into Possessioncartes values(1,'BigShaq1208',now(),NULL,NULL,1);
+insert into Possessioncartes values(1,'BigShaq1208','1950-10-10',NULL,NULL,1);
 insert into Possessioncartes values(2,'BigShaq1208',now(),NULL,NULL,2);
-insert into Possessioncartes values(3,'Fizzy',now(),NULL,NULL,4);
+insert into Possessioncartes values(3,'Fizzy','1950-10-10',NULL,NULL,4);
 insert into Possessioncartes values(4,'Fizzy',now(),NULL,NULL,3);
 insert into Possessioncartes values(7,'Fizzy',now(),NULL,NULL,1);
 insert into Possessioncartes values(5,'Alisrey7',now(),NULL,NULL,1);
-insert into Possessioncartes values(3,'Alisrey7',now(),NULL,NULL,2);
-insert into Possessioncartes values(7,'WearyStar111',now(),NULL,NULL,1);
+insert into Possessioncartes values(3,'Alisrey7','1953-10-10',NULL,NULL,2);
+insert into Possessioncartes values(7,'WearyStar111','1950-10-10',NULL,NULL,1);
 insert into Possessioncartes values(6,'Relayys',now(),NULL,NULL,3);
 
 insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(1,'1950-10-10', 5, 90, 19);
@@ -131,7 +131,7 @@ insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(3,'2010
 insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(4,'1950-10-10', 7, 120, 30);
 
 
--- Le nombre de versions par carte 
+-- --------------- Le nombre de versions par carte 
 
 -- select titre, date_impression, count(n_version) as nombre
 -- from Versions V
@@ -140,11 +140,56 @@ insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(4,'1950
 -- order by nombre desc;
 
 
-delete from Cartes
-where id_carte = 1;
+-- -------------- Les versions créées après une date
 
--- select * from Cartes;
-select * from Appartenance;
+-- select *
+-- from Versions
+-- where date_impression > '1998-08-07'; -- la date sera donnée par l'utilisateur
+
+--  ------------- Le nombre de fois qu'une carte a été possédée 
+
+-- select C.*, count(P.pseudonyme) as nombre_de_possessions
+-- from Cartes C
+-- natural join Possessioncartes P
+-- group by C.id_carte;
+
+-- -------------- Le dernier possesseur d'une carte
+
+-- create view derniere_possession as 
+-- select id_carte, date_derniere_possession from Cartes natural join (
+-- select id_carte, max(date_possession) as date_derniere_possession
+--     from Possessioncartes
+--     group by id_carte) as P;
+--     
+-- select pseudonyme
+-- from (
+-- select * from derniere_possession natural join Possessioncartes
+-- where date_possession = date_derniere_possession) as P
+-- natural join Cartes C
+-- where C.titre = 'akali'; -- Nom de carte à ajouter
+
+-- -------------- Le premier possesseur d'une carte
+
+-- create view derniere_possession as 
+-- select id_carte, date_derniere_possession from Cartes natural join (
+-- select id_carte, min(date_possession) as date_derniere_possession
+--     from Possessioncartes
+--     group by id_carte) as P;
+--     
+-- select pseudonyme
+-- from (
+-- select * from derniere_possession natural join Possessioncartes
+-- where date_possession = date_derniere_possession) as P
+-- natural join Cartes C
+-- where C.titre = 'yasuo'; -- Nom de carte à ajouter
+
+-- ----------------- Les cartes d'un joueur
+
+-- select C.*
+-- from (Cartes C natural join Possessioncartes P)
+-- natural join Joueurs J
+-- where J.pseudonyme = 'BigShaq1208'; -- Pseudo à ajouter
+
 
 
 
