@@ -214,35 +214,35 @@ function addPartiesjouees($n_partie, $pseudonyme, $n_deck, $nb_joueurs)
 function players()
 {
     global $link;
-    $sql = "select distinct * from joueurs";
+    $sql = "select distinct * from Joueurs";
     mysqli_query($link,$sql);
 }
 
 function cartes()
 {
     global $link;
-    $sql = "select distinct * from cartes";
+    $sql = "select distinct * from Cartes";
     mysqli_query($link,$sql);
 }
 
 function decks()
 {
     global $link;
-    $sql = "select distinct * from decks";
+    $sql = "select distinct * from Decks";
     mysqli_query($link,$sql);
 }
 
 function parties()
 {
     global $link;
-    $sql = "select distinct * from parties";
+    $sql = "select distinct * from Parties";
     mysqli_query($link,$sql);
 }
 
 function versions()
 {
     global $link;
-    $sql = "select distinct * from versions";
+    $sql = "select distinct * from Versions";
     mysqli_query($link,$sql);
 }
 ?>
