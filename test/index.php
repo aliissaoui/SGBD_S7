@@ -233,66 +233,73 @@
         })
     }
 
-    if ("<?php isset($_GET['page']) ?>") {
-        var page = "<?php $_GET['page'] ?>"
-        hd("all")
-        console.log(page);
+    var page = "<?php if (isset($_GET['page'])) echo $_GET['page'] ?>"
+    hd("all")
 
-        switch (page) {
-            //Consultation
-            case "cardType":
+    switch (page) {
+        //Consultation
+        case "cardType":
+            $("#welcome").html("<h3>Consultation</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'type';
+            var url = window.location.href;
+            if(url.indexOf('&'+field+'=') == -1){
                 $("#CardType").html("<div style='text-align: center;'><form id='ID_FORMULAIRE'><h4>Veuillez entre le nom du type:<input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> <h4></form></div>")
-                break;
-            case "cardNoDeck":
-                $("#welcome").html("<h3>Consultation</h3>")
-                $("#CardNoDeck").html("<h4>cartes n'appartenants à aucune main:</h4> <?php cardnDeck() ?>")
-                break;
-            case "playerNoGame":
-                $("#welcome").html("<h3>Consultation</h3>")
-                $("#PlayerNoGame").html("<h4>Les joueurs n'ayant aucune partie:</h4> <?php pWithoutGame() ?>");
-                break;
-                //Stats
-            case ("pCards"):
-                $("#welcome").html("<h3>Statistiques</h3>")
-                $('#PCards').html("<h4>Les cartes avec le nombre de joueurs qui les utilisent:</h4> <?php playersCards() ?>");
-                break;
-            case ("pValues"):
-                $("#welcome").html("<h3>Statistiques</h3>")
-                $("#PValues").html("<h4>Les joueurs avec les valeurs de leurs cartes:</h4> <?php playersValues() ?>")
-                break;
-            case ("cPlayers"):
-                $("#welcome").html("<h3>Statistiques</h3>")
-                $("#CPlayers").html("<h4>Les cartes avec le nombre de joueurs qui l'utilisent:</h4> <?php cardsPlayers() ?>")
-                break;
-            case ("pRare"):
-                $("#welcome").html("<h3>Statistiques</h3>")
-                $("#PRare").html("<h4>Les joueurs avec leurs cartes rares:</h4> <?php playersRare() ?>")
-                break;
-            case ("cardsFamily"):
-                $("#welcome").html("<h3>Statistiques</h3>")
-                $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
-                break;
-            case ("addPlayer"):
-                $("#welcome").html("<h3>Mise à Jours</h3>")
-                $('#AddPlayer').show();
-                break;
-            case ("addCardPlayer"):
-                $("#welcome").html("<h3>Mise à Jours</h3>")
-                $('#AddCardPlayer').show();
-                break;
-            case ("addGamePlayer"):
-                $("#welcome").html("<h3>Mise à Jours</h3>")
-                $('#AddGamePlayer').show();
-                break;
-        }
+            }
+            else {
+                var tab = "<?php if (isset($_GET['type'])) consltType($_GET['type']) ?>"
+                $("#CardType").html("<h4>Les cartes de type:" + type + "</h4>" + tab);
+                console.log(type.lenght);
+            }
+            break;
+        case "cardNoDeck":
+            $("#welcome").html("<h3>Consultation</h3>")
+            $("#CardNoDeck").html("<h4>cartes n'appartenants à aucune main:</h4> <?php cardnDeck() ?>")
+            break;
+        case "playerNoGame":
+            $("#welcome").html("<h3>Consultation</h3>")
+            $("#PlayerNoGame").html("<h4>Les joueurs n'ayant aucune partie:</h4> <?php pWithoutGame() ?>");
+            break;
+            //Stats
+        case ("pCards"):
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $('#PCards').html("<h4>Les cartes avec le nombre de joueurs qui les utilisent:</h4> <?php playersCards() ?>");
+            break;
+        case ("pValues"):
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#PValues").html("<h4>Les joueurs avec les valeurs de leurs cartes:</h4> <?php playersValues() ?>")
+            break;
+        case ("cPlayers"):
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#CPlayers").html("<h4>Les cartes avec le nombre de joueurs qui l'utilisent:</h4> <?php cardsPlayers() ?>")
+            break;
+        case ("pRare"):
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#PRare").html("<h4>Les joueurs avec leurs cartes rares:</h4> <?php playersRare() ?>")
+            break;
+        case ("cardsFamily"):
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
+            break;
+        case ("addPlayer"):
+            $("#welcome").html("<h3>Mise à Jours</h3>")
+            $('#AddPlayer').show();
+            break;
+        case ("addCardPlayer"):
+            $("#welcome").html("<h3>Mise à Jours</h3>")
+            $('#AddCardPlayer').show();
+            break;
+        case ("addGamePlayer"):
+            $("#welcome").html("<h3>Mise à Jours</h3>")
+            $('#AddGamePlayer').show();
+            break;
     }
 
     $("#ty").click(function() {
         var valeur = document.forms['ID_FORMULAIRE'].elements['type'].value;
         document.location.href = '?page=cardType&type=' + valeur;
-        var tab = "<?php consltType($_GET['type']) ?>"
-        $("#CardType").html("<h4>Les cartes de type: " + valeur + "</h4>" + tab);
-        $("#welcome").hide();
+        // $("#CardType").html("<h4>Les cartes de type: " + valeur + "</h4>" + tab);
+        // $("#welcome").hide();
         console.log("hehe");
     });
 </script>
