@@ -158,14 +158,14 @@ function addPlayer($name, $firstName, $pseudo)
 function addCard($titre, $description, $type, $famille, $attaque, $defense, $rapidite)
 {
     global $link;
-    $sql = " insert into cartes (titre, description, type, famille, attaque, defense, rapidite) values('".$titre."','".$description."','".$type."','".$famille."','".$attaque."','"$defense"','"$rapidite"') ";
+    $sql = " insert into cartes (titre, description, type, famille, attaque, defense, rapidite) values('".$titre."','".$description."','".$type."','".$famille."','".$attaque."','".$defense."','".$rapidite."') ";
     mysqli_query($link,$sql);
 }
 
 function addParty($date, $lieu, $type, $resultat)
 {
     global $link;
-    $sql = " insert into parties (date, lieu, type, resultat) values('".$id_carte."','".$titre."','".$description."','".$type."','".$famille."','".$attaque."','"$defense"','"$rapidite"') ";
+    $sql = " insert into parties (date, lieu, type, resultat) values('".$date."','".$lieu."','".$type."','".$resultat."') ";
     mysqli_query($link,$sql);
 }
 
@@ -186,11 +186,29 @@ function addVersion($date_impression, $rendu, $tirage, $cote)
 function addAppartenance($id_carte, $n_deck, $date_ajout)
 {
     global $link;
-    $sql = "insert into cartes appartenance values('".$id_carte."','".$n_deck."','".$date_ajout."') ";
+    $sql = "insert into  appartenance values('".$id_carte."','".$n_deck."','".$date_ajout."') ";
     mysqli_query($link,$sql);
 }
 
+function addPossesiondecks($n_deck, $pseudonyme, $date_possession)
+{
+    global $link;
+    $sql = "insert into  possessiondecks values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
+    mysqli_query($link,$sql);
+}
 
+function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $date_non_possession, $etat)
+{
+    global $link;
+    $sql = "insert into  possessioncartes values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
+    mysqli_query($link,$sql);
+}
 
+function addPartiesjouees($n_partie, $pseudonyme, $n_deck, $nb_joueurs)
+{
+    global $link;
+    $sql = "insert into  partiesjouees values('".$n_partie."','".$pseudonyme."','".$n_deck."','".$nb_joueurs."') ";
+    mysqli_query($link,$sql);
+}
 
 ?>
