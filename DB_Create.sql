@@ -20,7 +20,7 @@ nom VARCHAR(40) NOT NULL
 
 CREATE TABLE IF NOT EXISTS Appartenance (
 id_carte SMALLINT UNSIGNED,
-FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte),
+CONSTRAINT fk_inv_id_carte_appartenance FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE,
 n_deck SMALLINT UNSIGNED,
 PRIMARY KEY (n_deck, id_carte),
 FOREIGN KEY (n_deck) REFERENCES Decks(n_deck),
@@ -36,7 +36,7 @@ date_impression DATETIME NOT NULL,
 rendu SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
 tirage SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
 cote SMALLINT UNSIGNED NOT NULL,
-FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte)
+CONSTRAINT fk_inv_carte_id_version FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Joueurs (
@@ -48,7 +48,7 @@ prenom VARCHAR(40) NOT NULL
 CREATE TABLE IF NOT EXISTS Possessioncartes (
 id_carte SMALLINT UNSIGNED,
 PRIMARY KEY (id_carte, pseudonyme),
-FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte),
+CONSTRAINT fk_inv_carte_id_possession FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE,
 pseudonyme VARCHAR(40),
 FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme),
 date_possession DATETIME NOT NULL,
@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS Possessiondecks (
 n_deck SMALLINT UNSIGNED,
 pseudonyme VARCHAR(40),
 PRIMARY KEY (n_deck, pseudonyme),
-FOREIGN KEY (n_deck) REFERENCES Decks(n_deck),
-FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme),
+CONSTRAINT fk_inv_deck FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) ON DELETE CASCADE,
+CONSTRAINT fk_inv_pseudo FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) ON DELETE CASCADE,
 date_possession DATETIME
 );
 
@@ -79,9 +79,9 @@ n_partie SMALLINT UNSIGNED,
 pseudonyme VARCHAR(40),
 n_deck SMALLINT UNSIGNED,
 PRIMARY KEY (n_partie, pseudonyme),
-FOREIGN KEY (n_partie) REFERENCES Parties(n_partie),
-FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme),
-FOREIGN KEY (n_deck) REFERENCES Decks(n_deck),
+CONSTRAINT fk_inv_partie FOREIGN KEY (n_partie) REFERENCES Parties(n_partie) ON DELETE CASCADE,
+CONSTRAINT fk_inv_pseudo_partie FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) ON DELETE CASCADE,
+CONSTRAINT fk_inv_deck_partie FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) ON DELETE CASCADE,
 nb_joueurs TINYINT
 );
 
@@ -132,13 +132,23 @@ insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(4,'1950
 
 
 -- Le nombre de versions par carte 
--- select * from Versions;
 
 -- select titre, date_impression, count(n_version) as nombre
 -- from Versions V
 -- natural join Cartes C
 -- group by id_carte, titre, date_impression
 -- order by nombre desc;
+
+
+delete from Cartes
+where id_carte = 1;
+
+-- select * from Cartes;
+select * from Appartenance;
+
+
+
+
 
 
 
