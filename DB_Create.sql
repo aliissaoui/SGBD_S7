@@ -86,18 +86,18 @@ nb_joueurs TINYINT
 );
 
 -- Insertion des carte pour exemple
-insert into Cartes values(1, 'akali', 'green', 'slayer', 'badenjan', 90, 40, 85);
-insert into Cartes values(2, 'teemo', 'orange', 'specialist', 'batata', 80, 30, 90);
-insert into Cartes values(3, 'yasuo', 'black', 'slayer', 'maticha', 90, 60, 70);
-insert into Cartes values(4, 'fizz', 'blue', 'slayer', 'khizo', 85, 20, 85);
-insert into Cartes values(5, 'olaf', 'red', 'fighter', 'gar3a', 74, 70, 60);
-insert into Cartes values(6, 'jinx', 'rose', 'marksman', 'loubia', 96, 98, 95);
-insert into Cartes values(7, 'jinn', 'roubya', 'marksman', 'loubia', 30, 25, 97);
-insert into Cartes values(8, 'nn', 'november', 'gold', 'digger', 15, 25, 95);
-insert into Cartes values(9, 'syndra', 'violet', 'mage', 'jelbana', 80, 36, 73);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('akali', 'green', 'slayer', 'badenjan', 90, 40, 85);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('teemo', 'orange', 'specialist', 'batata', 80, 30, 90);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('yasuo', 'black', 'slayer', 'maticha', 90, 60, 70);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('fizz', 'blue', 'slayer', 'khizo', 85, 20, 85);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('olaf', 'red', 'fighter', 'gar3a', 74, 70, 60);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('jinx', 'rose', 'marksman', 'loubia', 96, 98, 95);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('jinn', 'roubya', 'marksman', 'loubia', 30, 25, 97);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('nn', 'november', 'gold', 'digger', 15, 25, 95);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('syndra', 'violet', 'mage', 'jelbana', 80, 36, 73);
 
-insert into Decks values(1, 'Majmou3ato lmawt');
-insert into Decks values(2, 'Majmou3ato L7ayat');
+insert into Decks (nom) values('Majmou3ato lmawt');
+insert into Decks (nom) values('Majmou3ato L7ayat');
 
 insert into Appartenance values(1,1, now());
 insert into Appartenance values(2,1, now());
@@ -122,12 +122,24 @@ insert into Possessioncartes values(3,'Alisrey7',now(),NULL,NULL,2);
 insert into Possessioncartes values(7,'WearyStar111',now(),NULL,NULL,1);
 insert into Possessioncartes values(6,'Relayys',now(),NULL,NULL,3);
 
-insert into Versions values(1, 1, '1950-10-10', 5, 90, 19);
-insert into Versions values(2, 2, '1950-10-10', 4, 230, 17);
-insert into Versions values(3, 3, '1950-10-10', 2, 2, 101);
-insert into Versions values(4, 4, '1950-10-10', 1, 430, 16);
-insert into Versions values(5, 5, '2010-10-10', 5, 200, 29);
-insert into Versions values(6, 6, '2010-10-10', 3, 540, 33);
-insert into Versions values(7, 7, '1950-10-10', 7, 120, 30);
+insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(1,'1950-10-10', 5, 90, 19);
+insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(2,'1950-10-10', 4, 230, 17);
+insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(1,'1950-10-10', 2, 2, 101);
+insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(1,'1950-10-10', 1, 430, 16);
+insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(1,'2010-10-10', 5, 200, 29);
+insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(3,'2010-10-10', 3, 540, 33);
+insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(4,'1950-10-10', 7, 120, 30);
+
+
+-- Le nombre de versions par carte 
+-- select * from Versions;
+
+-- select titre, date_impression, count(n_version) as nombre
+-- from Versions V
+-- natural join Cartes C
+-- group by id_carte, titre, date_impression
+-- order by nombre desc;
+
+
 
 
