@@ -399,4 +399,32 @@ function versions()
     $sql = "select distinct * from Versions";
     echo display_data(mysqli_query($link,$sql));
 }
+////// Relations
+function playerPosCard()
+{
+    global $link;
+    $sql = "select distinct * from Possessioncartes";
+    echo display_data(mysqli_query($link,$sql));
+}
+
+function playerPosDeck()
+{
+    global $link;
+    $sql = "select distinct * from Possessiondecks";
+    echo display_data(mysqli_query($link,$sql));
+}
+
+function deckPosCard()
+{
+    global $link;
+    $sql = "select distinct * from Appartenance";
+    echo display_data(mysqli_query($link,$sql));
+}
+
+function playerGame()
+{
+    global $link;
+    $sql = "select distinct * from Partiesjouees";
+    echo display_data(mysqli_query($link,$sql));
+}
 ?>
