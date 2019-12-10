@@ -52,11 +52,18 @@
                         <li class="nav-header">
                             <h4>Consultation</h4>
                         </li>
+                        <h5>Entités</h5>
                         <li><a href="?page=players" id="players">Joueurs</a></li>
                         <li><a href="?page=cards" id="cards">Cartes</a></li>
                         <li><a href="?page=parties" id="parties">Parties</a></li>
                         <li><a href="?page=decks" id="decks">Mains</a></li>
                         <li><a href="?page=versions" id="versions">Versions</a></li>
+                        <h5>Relations</h5>
+                        <li><a href="?page=playerPosCard" id="playerPosCard">Carte possédée par joueurs</a></li>
+                        <li><a href="?page=playerPosDeck" id="playerPosDeck">Deck possédé par joueurs</a></li>
+                        <li><a href="?page=deckPosCard" id="deckPosCard">Carte appartient à Deck</a></li>
+                        <li><a href="?page=playerGame" id="playerGame">Parties jouées</a></li>
+                        <h5>Avancées</h5>
                         <li><a href="?page=cardType" id="cardType">Cartes par type</a></li>
                         <li><a href="?page=cardNoDeck" id="cardNoDeck">Cartes sans Deck</a></li>
                         <li><a href="?page=playerNoGame" id="playerNoGame">Joueurs sans aucune partie</a></li>
@@ -71,15 +78,13 @@
                         <li class="nav-header">
                             <h4>Mise à jour</h4>
                         </li>
+                        <h5>Entités</h5>
                         <li><a href="?page=chosePlayer" id="chosePlayer">Ajouter/Supprimer Un joueur</a></li>
-                        <!-- <li><a href="?page=addPlayer" id="addPlayer">Ajouter/Supprimer Un joueur</a></li> -->
                         <li><a href="?page=choseCard" id="choseCard">Ajouter/Supprimer carte</a></li>
-                        <!-- <li><a href="?page=addCard" id="addCard">Ajouter/Supprimer carte</a></li> -->
                         <li><a href="?page=choseGame" id="addGame">Ajouter/Supprimer une partie</a></li>
-                        <!-- <li><a href="?page=addGame" id="addGame">Ajouter/Supprimer une partie</a></li> -->
                         <li><a href="?page=choseDeck" id="pRare">Ajouter/Supprimer une main</a></li>
-                        <!-- <li><a href="?page=addVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li> -->
                         <li><a href="?page=choseVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li>
+                        <h5>Relations</h5>
                         <li><a href="?page=cardPlayer" id="addCardPlayer">Ajouter/Supprimer une carte à un joueur</a></li>
                         <li><a href="?page=deckPlayer" id="addDeckPlayer">Ajouter/Supprimer une main à un joueur</a></li>
                         <li><a href="?page=gamePlayer" id="addGamePlayer">Ajouter/Supprimer une partie jouées par un joueur</a></li>
@@ -438,6 +443,7 @@
 
     switch (page) {
         //Consultation
+        //////Entitées
         case "cardType":
             $("#welcome").html("<h3>Consultation</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
@@ -470,6 +476,24 @@
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Versions").html("<h4>La liste des versions:</h4> <?php versions() ?>")
             break;
+        //////Relations
+        case "playerPosCard":
+            $("#welcome").html("<h3>Consultation</h3>")
+            $("#Cards").html("<h4>La liste des cartes:</h4> <?php playerPosCard() ?>")
+            break;
+        case "playerPosDeck":
+            $("#welcome").html("<h3>Consultation</h3>")
+            $("#Parties").html("<h4>La liste des parties:</h4> <?php playerPosDeck() ?>")
+            break;
+        case "deckPosCard":
+            $("#welcome").html("<h3>Consultation</h3>")
+            $("#Decks").html("<h4>La liste des main:</h4> <?php deckPosCard() ?>")
+            break;
+        case "playerGame":
+            $("#welcome").html("<h3>Consultation</h3>")
+            $("#Versions").html("<h4>La liste des versions:</h4> <?php playerGame() ?>")
+            break;
+        //////Advanced
         case "cardNoDeck":
             $("#welcome").html("<h3>Consultation</h3>")
             $("#CardNoDeck").html("<h4>cartes n'appartenants à aucune main:</h4> <?php cardnDeck() ?>")
@@ -1045,6 +1069,9 @@
         }
     }
 
+    h5 {
+        color: #a5a5a5;
+    }
     footer {
 
         background-color: grey;
