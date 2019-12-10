@@ -391,7 +391,7 @@
                               "#AddVersion", "#AddDeck", "#MenuCard",
                               "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
                               "#DeleteDeck","#DeleteCard","#DeleteVersion","#DeleteGame",
-                              "#DeletePlayer","#AddCP");
+                              "#DeletePlayer","#AddCP","#AddGP");
         funcs.forEach(elem => {
             if (elem != keep) {
                 $(elem).hide();
@@ -694,14 +694,14 @@
                             ?>";
             }
             break;
-            case ("addGamePlayer"):
+            case ("gamePlayer"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'gameName';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
                 $("#welcome").html("<h3>Mise à Jour</h3>")
-                $('#AddCP').show();
+                $('#AddGP').show();
             } else {
                 var add = "<?php if (
                                 isset($_GET['gameName']) &&
