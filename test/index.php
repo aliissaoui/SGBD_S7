@@ -83,7 +83,7 @@
                         <li><a href="?page=cardPlayer" id="addCardPlayer">Ajouter/Supprimer une carte à un joueur</a></li>
                         <li><a href="?page=deckPlayer" id="addDeckPlayer">Ajouter/Supprimer une main à un joueur</a></li>
                         <li><a href="?page=gamePlayer" id="addGamePlayer">Ajouter/Supprimer une partie jouées par un joueur</a></li>
-                        <li><a href="?page=gamePlayer" id="addCardDeck">Ajouter/Supprimer une carte à une main</a></li>
+                        <li><a href="?page=cardDeck" id="addCardDeck">Ajouter/Supprimer une carte à une main</a></li>
 
                     </ul>
                 </div>
@@ -324,8 +324,8 @@
                    <form id="addCPForm">
                         <h3>Ajouter une carte à un joueur</h3>
                         <div>
-                            <label for="CardTitle">Titre de la carte*: </label>
-                            <input type="text" name="CardTitle" id="CardTitle" required>
+                            <label for="CardID">Id de la carte*: </label>
+                            <input type="text" name="CardID" id="CardID" required>
                         </div>
                         <div>
                             <label for="PlayerPseudo">Pseudo*: </label>
@@ -333,6 +333,7 @@
                         </div>
                         <div>
                             <a id='addCPButton' class='button-class'>Ajouter</a>
+                            <a id='deleteCPButton' class='button-class'>Ajouter</a>
                         </div>
                     </form>
                 </div>
@@ -340,8 +341,8 @@
                     <form id="addGPForm">
                         <h3>Ajouter une partie à un joueur</h3>
                         <div>
-                            <label for="GameName">Nom de la partie*: </label>
-                            <input type="text" name="CardTitle" id="CardTitle" required>
+                            <label for="GameNumber">Nom de la partie*: </label>
+                            <input type="text" name="GameNumber" id="GameNumber" required>
                         </div>
                         <div>
                             <label for="PlayerPseudo">Pseudo*: </label>
@@ -349,6 +350,41 @@
                         </div>
                         <div>
                             <a id='addGPButton' class='button-class'>Ajouter</a>
+                            <a id='deleteGPButton' class='button-class'>Ajouter</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="AddDP" style="text-align: center;">
+                    <form id="addDPForm">
+                        <h3>Ajouter une main à un joueur</h3>
+                        <div>
+                            <label for="DeckName">Nom de la main*: </label>
+                            <input type="text" name="DeckName" id="DeckName" required>
+                        </div>
+                        <div>
+                            <label for="PlayerPseudo">Pseudo*: </label>
+                            <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
+                        </div>
+                        <div>
+                            <a id='addDPButton' class='button-class'>Ajouter</a>
+                            <a id='deleteDPButton' class='button-class'>Ajouter</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="AddDC" style="text-align: center;">
+                    <form id="addDCForm">
+                        <h3>Ajouter une carte à une main</h3>
+                        <div>
+                            <label for="DeckName">Nom de la main*: </label>
+                            <input type="text" name="DeckName" id="DeckName" required>
+                        </div>
+                        <div>
+                            <label for="cardID">Id de la carte*: </label>
+                            <input type="text" name="cardID" id="cardID" required>
+                        </div>
+                        <div>
+                            <a id='addDCButton' class='button-class'>Ajouter</a>
+                            <a id='deleteDCButton' class='button-class'>Supprimer</a>
                         </div>
                     </form>
                 </div>
@@ -391,7 +427,7 @@
                               "#AddVersion", "#AddDeck", "#MenuCard",
                               "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
                               "#DeleteDeck","#DeleteCard","#DeleteVersion","#DeleteGame",
-                              "#DeletePlayer","#AddCP","#AddGP");
+                              "#DeletePlayer","#AddCP","#AddGP","#AddDP","#AddDC");
         funcs.forEach(elem => {
             if (elem != keep) {
                 $(elem).hide();
@@ -694,7 +730,7 @@
                             ?>";
             }
             break;
-            case ("gamePlayer"):
+        case ("gamePlayer"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'gameName';
@@ -707,7 +743,43 @@
                                 isset($_GET['gameName']) &&
                                 isset($_GET['playerPseudo'])
                             ) {
-                                addPartiesjouees($_GET['gameName'], $_GET['playerPseudo'], 1, 2);
+                                addPartiesjouees($_GET['gameName'], $_GET['playerPseudo'], 1, 2);//TO CHANGE
+                            }
+                            ?>";
+            }
+            break;
+        case ("deckPlayer"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'deckName';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#AddDP').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['deckName']) &&
+                                isset($_GET['playerPseudo'])
+                            ) {
+                                addPartiesjouees($_GET['deckName'], $_GET['playerPseudo'], 1, 2);//TO CHANGE
+                            }
+                            ?>";
+            }
+            break;
+        case ("cardDeck"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'deckName';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#AddDC').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['deckName']) &&
+                                isset($_GET['cardID'])
+                            ) {
+                                addPartiesjouees($_GET['deckName'], $_GET['playerPseudo'], 1, 2);//TO CHANGE
                             }
                             ?>";
             }
