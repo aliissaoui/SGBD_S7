@@ -130,6 +130,19 @@ insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(1,'2010
 insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(3,'2010-10-10', 3, 540, 33);
 insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(4,'1950-10-10', 7, 120, 30);
 
+insert into Possessiondecks values(1, 'BigShaq1208', '1990-10-10');
+
+
+insert into Parties (date, lieu, type, resultat) values('1990-10-10', 'Bordeaux', 'Fun', 1);
+insert into Parties (date, lieu, type, resultat) values('1991-10-10', 'Bordeaux', 'Fun', 1);
+insert into Parties (date, lieu, type, resultat) values('1992-10-10', 'Bordeaux', 'Fun', 0);
+
+
+insert into Partiesjouees values(1, 'BigShaq1208', 1, 2);
+insert into Partiesjouees values(2, 'BigShaq1208', 1, 2);
+insert into Partiesjouees values(3, 'BigShaq1208', 1, 2);
+
+
 
 -- --------------- Le nombre de versions par carte 
 
@@ -190,11 +203,19 @@ insert into Versions (id_carte,date_impression,rendu,tirage,cote) values(4,'1950
 -- natural join Joueurs J
 -- where J.pseudonyme = 'BigShaq1208'; -- Pseudo à ajouter
 
+-- ------------------ Les joueurs qui possedent une carte
 
+-- select J.*
+-- from (Cartes C natural join Possessioncartes P)
+-- natural join Joueurs J
+-- where C.titre = 'yasuo'; -- titre à ajouter
 
+-- ------------------ Le nombre de parties gagnées par un joueur
 
-
-
+-- select sum(resultat) as nombre_wins, count(resultat) - sum(resultat) as nombre_losses 
+-- from Parties
+-- natural join Partiesjouees
+-- where pseudonyme = 'BigShaq1208';
 
 
 
