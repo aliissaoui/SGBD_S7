@@ -165,6 +165,7 @@ function deletePlayer($pseudo)
 
 function addCard($titre, $description, $type, $famille, $attaque, $defense, $rapidite)
 {
+    
     global $link;
     $sql = " insert into Cartes (titre, description, type, famille, attaque, defense, rapidite) values('".$titre."','".$description."','".$type."','".$famille."','".$attaque."','".$defense."','".$rapidite."') ";
     mysqli_query($link,$sql);
@@ -273,6 +274,92 @@ function deletePartiesjouees($n_partie, $pseudonyme)
     global $link;
     $sql = " delete from Partiesjouees where n_partie='".$n_partie."' and pseudonyme='".$pseudonyme."' ";
     mysqli_query($link,$sql);
+}
+
+function numberVersionsCards()
+{
+    global $link;
+    $sql = "select titre, date_impression, count(n_version) as nombre
+            from Versions V
+            natural join Cartes C
+            group by id_carte, titre, date_impression
+            order by nombre desc";
+    echo display_data(mysqli_query($link,$sql));
+}
+
+function versionsAfterDate($date_impression)
+{
+    global $link;
+    $sql = "select *
+            from Versions
+            where date_impression > '".$date_impression."' ";
+    echo display_data(mysqli_query($link,$sql));
+}
+
+function numberPossessionsCard()
+{
+    global $link;
+    $sql = "select C.*, count(P.pseudonyme) as nombre_de_possessions
+            from Cartes C
+            natural join Possessioncartes P
+            group by C.id_carte";
+    echo display_data(mysqli_query($link,$sql));
+}
+
+function lastPossession($cardID)
+{
+    global $link;
+    $sql = "create view derniere_possession as 
+            select id_carte, date_derniere_possession from Cartes natural join (
+            select id_carte, max(date_possession) as date_derniere_possession
+              from Possessioncartes
+              group by id_carte) as P;
+        
+            select pseudonyme
+            from (
+              select * from derniere_possession natural join Possessioncartes
+              where date_possession = date_derniere_possession) as P
+            natural join Cartes C
+            where C.id_carte = '".$cardID."'";
+    echo display_data(mysqli_query($link,$sql));
+
+}
+
+function firstPossession($cardID)
+{
+    global $link;
+    $sql = "create view derniere_possession as 
+            select id_carte, date_derniere_possession from Cartes natural join (
+            select id_carte, min(date_possession) as date_derniere_possession
+              from Possessioncartes
+              group by id_carte) as P;
+        
+            select pseudonyme
+            from (
+              select * from derniere_possession natural join Possessioncartes
+              where date_possession = date_derniere_possession) as P
+            natural join Cartes C
+            where C.id_carte = '".$cardID."'";
+    echo display_data(mysqli_query($link,$sql));
+
+}
+
+function cardsPlayer($player)
+{
+    global $link;
+    $sql = "select C.*
+            from (Cartes C natural join Possessioncartes P)
+            natural join Joueurs J
+            where J.pseudonyme = '".$player."' ";
+}
+
+function winRate($player)
+{
+    global $link;
+    $sql = "select sum(resultat) as nombre_wins, count(resultat) - sum(resultat) as nombre_losses 
+            from Parties
+            natural join Partiesjouees
+            where pseudonyme = '".$player."' ";
 }
 
 
