@@ -155,6 +155,14 @@ function addPlayer($name, $firstName, $pseudo)
     mysqli_query($link,$sql);
 }
 
+
+function deletePlayer($pseudo)
+{
+    global $link;
+    $sql = " delete from Joueurs where pseudonyme='".$pseudo."' ";
+    mysqli_query($link,$sql);
+}
+
 function addCard($titre, $description, $type, $famille, $attaque, $defense, $rapidite)
 {
     global $link;

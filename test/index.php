@@ -71,11 +71,16 @@
                         <li class="nav-header">
                             <h4>Mise à jour</h4>
                         </li>
-                        <li><a href="?page=addPlayer" id="addPlayer">Ajouter/Supprimer Un joueur</a></li>
-                        <li><a href="?page=addCard" id="addCard">Ajouter/Supprimer carte</a></li>
-                        <li><a href="?page=addGame" id="addGame">Ajouter/Supprimer une partie</a></li>
-                        <li><a href="?page=addDeck" id="pRare">Ajouter/Supprimer une main</a></li>
-                        <li><a href="?page=addVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li>
+                        <li><a href="?page=chosePlayer" id="chosePlayer">Ajouter/Supprimer Un joueur</a></li>
+                        <!-- <li><a href="?page=addPlayer" id="addPlayer">Ajouter/Supprimer Un joueur</a></li> -->
+                        <li><a href="?page=choseCard" id="choseCard">Ajouter/Supprimer carte</a></li>
+                        <!-- <li><a href="?page=addCard" id="addCard">Ajouter/Supprimer carte</a></li> -->
+                        <li><a href="?page=choseGame" id="addGame">Ajouter/Supprimer une partie</a></li>
+                        <!-- <li><a href="?page=addGame" id="addGame">Ajouter/Supprimer une partie</a></li> -->
+                        <li><a href="?page=choseDeck" id="pRare">Ajouter/Supprimer une main</a></li>
+                        <!-- <li><a href="?page=addVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li> -->
+                        <li><a href="?page=choseVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li>
+
                     </ul>
                 </div>
                 <!--/.well -->
@@ -105,6 +110,10 @@
                 <div id="CPlayers"></div>
                 <div id="PRare"></div>
                 <div id="CardsFamily"></div>
+                <div id="MenuPlayer" style="text-align: center;">
+                    <button id="addPlayerChose" class="btn btn-primary">Ajouter un joueur</button>
+                    <button id="deletePlayerChose" class="btn btn-primary">Supprimer un joueur</button>
+                </div>
                 <div id="AddPlayer" style="text-align: center;">
                     <form id="addPForm">
                         <h3>Ajouter un Joueur</h3>
@@ -124,7 +133,22 @@
                             <a id='addPButton' class='button-class'>Ajouter</a>
                         </div>
                     </form>
-
+                </div>
+                <div id="DeletePlayer" style="text-align: center;">
+                    <form id="deletePForm">
+                        <h3>Supprimer un Joueur</h3>
+                        <div>
+                            <label for="PlayerPseudo">Pseudo*: </label>
+                            <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
+                        </div>
+                        <div>
+                            <a id='deletePButton' class='button-class'>Supprimer</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="MenuCard" style="text-align: center;">
+                    <button id="addCardChose" class="btn btn-primary">Ajouter une carte</button>
+                    <button id="deleteCardChose" class="btn btn-primary">Supprimer une carte</button>
                 </div>
                 <div id="AddCard" style="text-align: center;">
                     <form id="addCForm">
@@ -175,6 +199,22 @@
 
                     </form>
                 </div>
+                <div id="DeleteCard" style="text-align: center;">
+                    <form id="deletePForm">
+                        <h3>Supprimer une carte</h3>
+                        <div>
+                            <label for="cardID">ID de la carte*: </label>
+                            <input type="text" name="cardID" id="cardID" required>
+                        </div>
+                        <div>
+                            <a id='deleteCButton' class='button-class'>Supprimer</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="MenuGame" style="text-align: center;">
+                    <button id="addGameChose" class="btn btn-primary">Ajouter une partie</button>
+                    <button id="deleteGameChose" class="btn btn-primary">Supprimer une partie</button>
+                </div>
                 <div id="AddGame" style="text-align: center;">
                     <form id="addGForm">
                         <h3>Ajouter une Partie</h3>
@@ -204,9 +244,25 @@
                         </div>
                     </form>
                 </div>
+                <div id="DeleteGame" style="text-align: center;">
+                    <form id="deletePForm">
+                        <h3>Supprimer un partie</h3>
+                        <div>
+                            <label for="GameNumber">Numero de la partie*: </label>
+                            <input type="text" name="GameNumber" id="GameNumber" required>
+                        </div>
+                        <div>
+                            <a id='deleteGButton' class='button-class'>Supprimer</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="MenuDeck" style="text-align: center;">
+                    <button id="addDeckChose" class="btn btn-primary">Ajouter une main</button>
+                    <button id="deleteDeckChose" class="btn btn-primary">Supprimer une main</button>
+                </div>
                 <div id="AddDeck" style="text-align: center;">
                     <form id="addDForm">
-                        <h3>Ajouter une Main</h3>
+                        <h3>Ajouter une main</h3>
                         <div>
                             <label for="DeckName">Nom la main*: </label>
                             <input type="text" name="DeckName" id="DeckName" required>
@@ -216,9 +272,26 @@
                         </div>
                     </form>
                 </div>
+                <div id="DeleteDeck" style="text-align: center;">
+                    <form id="deleteDForm">
+                        <h3>Supprimer une main</h3>
+                        <div>
+                            <label for="Deck">Numero de la version*: </label>
+                            <input type="text" name="DeckName" id="DeckName" required>
+                        </div>
+                        <div>
+                            <a id='deleteDButton' class='button-class'>Supprimer</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="MenuVersion" style="text-align: center;">
+                    <button id="addVersionChose" class="btn btn-primary">Ajouter une carte</button>
+                    <button id="deleteVersionChose" class="btn btn-primary">Supprimer une carte</button>
+                </div>
                 <div id="AddVersion" style="text-align: center;">
                     <form id="addVForm">
-                        <h3>Ajouter une Version de carte</h3>
+                        <h3>Ajouter une version de carte</h3>
                         <div>
                             <label for="cardVID">Id de la carte*:</label>
                             <input type="numero" name="cardVID" id="cardVID" required>
@@ -246,6 +319,18 @@
                         </div>
                         </form>
                 </div>
+                <div id="DeleteVersion" style="text-align: center;">
+                    <form id="deleteVForm">
+                        <h3>Supprimer une version de carte</h3>
+                        <div>
+                            <label for="VersionName">Numero de la version*: </label>
+                            <input type="text" name="VersionName" id="VersionName" required>
+                        </div>
+                        <div>
+                            <a id='deleteVButton' class='button-class'>Supprimer</a>
+                        </div>
+                    </form>
+                </div>
 
                 <hr>
 
@@ -267,7 +352,11 @@
 
 <script>
     var hd = function(keep) {
-        var funcs = new Array("#AddPlayer", "#AddCard", "#AddGame", "#AddVersion", "#AddDeck");
+        var funcs = new Array("#AddPlayer", "#AddCard", "#AddGame",
+                              "#AddVersion", "#AddDeck", "#MenuCard",
+                              "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
+                              "#DeleteDeck","#DeleteCard","#DeleteVersion","#DeleteGame",
+                              "#DeletePlayer");
         funcs.forEach(elem => {
             if (elem != keep) {
                 $(elem).hide();
@@ -341,6 +430,10 @@
             $("#welcome").html("<h3>Statistiques</h3>")
             $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
             break;
+        case ("chosePlayer"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            $("#MenuPlayer").show();
+            break;
         case ("addPlayer"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
@@ -357,6 +450,25 @@
                             )
                                 addPlayer($_GET['playerName'], $_GET['playerFirstName'], $_GET['playerPseudo']); ?>"
             }
+            break;
+        case ("deletePlayer"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'playerPseudo';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#DeletePlayer').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['playerPseudo'])
+                            )
+                                deletePlayer($_GET['playerPseudo']); ?>"
+            }
+            break;
+        case ("choseCard"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            $("#MenuCard").show();
             break;
         case ("addCard"):
             $("#welcome").html("<h3>Mise à jour</h3>")
@@ -390,6 +502,10 @@
 
             }
             break;
+        case ("choseGame"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            $("#MenuGame").show();
+            break;
         case ("addGame"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
@@ -411,6 +527,10 @@
 
             }
             break;
+        case ("choseDeck"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            $("#MenuDeck").show();
+            break;
         case ("addDeck"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
@@ -427,6 +547,10 @@
                             ?>";
 
             }
+            break;
+        case ("choseVersion"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            $("#MenuVersion"    ).show();
             break;
         case ("addVersion"):
             $("#welcome").html("<h3>Mise à jour</h3>")
@@ -461,11 +585,57 @@
         document.location.href = '?page=cardType&type=' + valeur;
     });
 
+    $("#addPlayerChose").click(function() {
+        document.location.href = '?page=addPlayer'
+        $("#MenuPlayer").hide();
+    });
+    $("#addCardChose").click(function() {
+        document.location.href = '?page=addCard'
+        $("#MenuCard").hide();
+    });
+    $("#addDeckChose").click(function() {
+        document.location.href = '?page=addDeck'
+        $("#MenuDeck").hide();
+    });
+    $("#addVersionChose").click(function() {
+        document.location.href = '?page=addVersion'
+        $("#MenuVersion").hide();
+    });
+    $("#addGameChose").click(function() {
+        document.location.href = '?page=addGame'
+        $("#MenuGame").hide();
+    });
+
+    $("#deletePlayerChose").click(function() {
+        document.location.href = '?page=deletePlayer'
+        $("#MenuPlayer").hide();
+    });
+    $("#deleteCardChose").click(function() {
+        document.location.href = '?page=deleteCard'
+        $("#MenuCard").hide();
+    });
+    $("#deleteDeckChose").click(function() {
+        document.location.href = '?page=deleteDeck'
+        $("#MenuDeck").hide();
+    });
+    $("#deleteVersionChose").click(function() {
+        document.location.href = '?page=deleteVersion'
+        $("#MenuVersion").hide();
+    });
+    $("#deleteGameChose").click(function() {
+        document.location.href = '?page=deleteGame'
+        $("#MenuGame").hide();
+    });
     $('#addPButton').click(function() {
         var nom = document.forms['addPForm'].elements['PlayerName'].value;
         var prenom = document.forms['addPForm'].elements['PlayerFirstName'].value;
         var pseudo = document.forms['addPForm'].elements['PlayerPseudo'].value;
         document.location.href = '?page=addPlayer&playerName=' + nom + '&playerFirstName=' + prenom + '&playerPseudo=' + pseudo;
+        alert("Player added");
+    });
+    $('#deletePButton').click(function() {
+        var pseudo = document.forms['deletePForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addPlayer&playerPseudo=' + pseudo;
         alert("Player added");
     });
 
