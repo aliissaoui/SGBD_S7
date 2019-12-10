@@ -170,10 +170,24 @@ function addCard($titre, $description, $type, $famille, $attaque, $defense, $rap
     mysqli_query($link,$sql);
 }
 
+function deleteCard($id_carte)
+{
+    global $link;
+    $sql = " delete from Cartes where id_carte='".$id_carte."' ";
+    mysqli_query($link,$sql);
+}
+
 function addParty($date, $lieu, $type, $resultat)
 {
     global $link;
     $sql = " insert into Parties (date, lieu, type, resultat) values('".$date."','".$lieu."','".$type."','".$resultat."') ";
+    mysqli_query($link,$sql);
+}
+
+function deleteParty($n_partie)
+{
+    global $link;
+    $sql = " delete from Parties where n_partie='".$n_partie."' ";
     mysqli_query($link,$sql);
 }
 
@@ -184,10 +198,24 @@ function addDeck($nom)
     mysqli_query($link,$sql);
 }
 
+function deleteDeck($n_deck)
+{
+    global $link;
+    $sql = " delete from Decks where n_deck='".$n_deck."' ";
+    mysqli_query($link,$sql);
+}
+
 function addVersion($card, $date_impression, $rendu, $tirage, $cote)
 {
     global $link;
     $sql = " insert into Versions (id_carte ,date_impression, rendu, tirage, cote) values('".$card."','".$date_impression."','".$rendu."','".$tirage."','".$cote."' ) ";
+    mysqli_query($link,$sql);
+}
+
+function deleteVersion($n_version)
+{
+    global $link;
+    $sql = " delete from Versions where n_version='".$n_version."' ";
     mysqli_query($link,$sql);
 }
 
@@ -198,10 +226,24 @@ function addAppartenance($id_carte, $n_deck, $date_ajout)
     mysqli_query($link,$sql);
 }
 
+function deleteAppartenance($id_carte, $n_deck)
+{
+    global $link;
+    $sql = " delete from Appartenance where id_carte='".$id_carte."' and n_deck='".$n_deck."' ";
+    mysqli_query($link,$sql);
+}
+
 function addPossesiondecks($n_deck, $pseudonyme, $date_possession)
 {
     global $link;
     $sql = "insert into  Possessiondecks values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
+    mysqli_query($link,$sql);
+}
+
+function deletePossesiondecks($n_deck, $pseudonyme)
+{
+    global $link;
+    $sql = " delete from Possessiondecks where n_deck='".$n_deck."' and pseudonyme='".$pseudonyme."' ";
     mysqli_query($link,$sql);
 }
 
