@@ -151,7 +151,7 @@ function consltType($t){
 function addPlayer($name, $firstName, $pseudo)
 {
     global $link;
-    $sql = " insert into Joueurs values('".$pseudo."','".$name."','".$firstName."') ";
+    $sql = " insert into Joueurs values('".$name."','".$firstName."','".$pseudo."') ";
     mysqli_query($link,$sql);
 }
 

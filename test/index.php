@@ -34,9 +34,10 @@
                 <a class="brand" href="#">Projet SGBD : Carte à collectionner</a>
                 <div>
                     <ul class="nav">
-                        <li class="active"><a href="#">Acceuil</a></li>
-                        <li><a href="#consult">Consultation</a></li>
-                        <li><a href="#stats">Statistiques</a></li>
+                        <li><a href="#">Acceuil</a></li>
+                        <li><a id="consultation" href="?page=consultations">Consultation</a></li>
+                        <li><a id="statistic" href="?page=statistics">Statistiques</a></li>
+                        <li><a id="update" href="?page=updates">Mise à jour</a></li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
@@ -47,7 +48,7 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
-                <div class="well sidebar-nav">
+                <div id="consultations" class="well sidebar-nav">
                     <ul class="nav nav-list">
                         <li class="nav-header">
                             <h4>Consultation</h4>
@@ -67,6 +68,10 @@
                         <li><a href="?page=cardType" id="cardType">Cartes par type</a></li>
                         <li><a href="?page=cardNoDeck" id="cardNoDeck">Cartes sans Deck</a></li>
                         <li><a href="?page=playerNoGame" id="playerNoGame">Joueurs sans aucune partie</a></li>
+                    </ul>
+                </div>
+                <div id="statistics" class="well sidebar-nav">
+                    <ul class="nav nav-list">
                         <li class="nav-header">
                             <h4>Statistiques</h4>
                         </li>
@@ -75,8 +80,14 @@
                         <li><a href="?page=cPlayers" id="cPlayers">Cartes avec nombre des joueurs qui l'utilisent</a></li>
                         <li><a href="?page=pRare" id="pRare">Joueurs possédant le plus de cartes rares</a></li>
                         <li><a href="?page=cardsFamily" id="cardsFamily">Famille de carte</a></li>
+
+                    </ul>
+                </div>
+
+                <div id="updates" class="well sidebar-nav">
+                    <ul class="nav nav-list">
                         <li class="nav-header">
-                            <h4>Mise à jour</h4>
+                        <h4>Mise à jour</h4>
                         </li>
                         <h5>Entités</h5>
                         <li><a href="?page=chosePlayer" id="chosePlayer">Ajouter/Supprimer Un joueur</a></li>
@@ -137,15 +148,15 @@
                     <form id="addPForm">
                         <h3>Ajouter un Joueur</h3>
                         <div>
-                            <label for="Nom">Nom*: </label>
+                            <label for="Nom">Pseudo*: </label>
                             <input type="text" name="PlayerName" id="PlayerName" required>
                         </div>
                         <div>
-                            <label for="Prenom">Prenom*: </label>
+                            <label for="Prenom">Nom*: </label>
                             <input type="text" name="PlayerFirstName" id="PlayerFirstName" required>
                         </div>
                         <div>
-                            <label for="PlayerPseudo">Pseudo*: </label>
+                            <label for="PlayerPseudo">Prenom*: </label>
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
@@ -436,7 +447,8 @@
 
 <script>
     var hd = function(keep) {
-        var funcs = new Array("#CardTypeF", "#CardTypeResult", "#AddPlayer", "#AddCard",
+        var funcs = new Array("#consultations", "#statistics", "#updates",
+                             "#CardTypeF", "#CardTypeResult", "#AddPlayer", "#AddCard",
                              "#AddGame", "#AddVersion", "#AddDeck", "#MenuCard",
                               "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
                               "#DeleteDeck","#DeleteCard","#DeleteVersion","#DeleteGame",
@@ -454,13 +466,21 @@
     switch (page) {
         //Consultation
         //////Entitées
+        case "consultations":
+            $("#consultations").show();
+            break;
+        case "statistics":
+            $("#statistics").show();
+            break;
+        case "updates":
+            $("#updates").show();
+            break;
         case "cardType":
             $("#welcome").html("<h3>Consultation</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'type';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
-                console.log("hello")
                 $("#welcome").html("<h3>Consultation</h3>")
                 $("#CardTypeF").show();
             } else {
@@ -471,79 +491,97 @@
             }
             break;
         case "players":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Players").html("<h4>La liste des joueurs:</h4> <?php players() ?>")
             break;
         case "cards":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Cards").html("<h4>La liste des cartes:</h4> <?php cartes() ?>")
             break;
         case "parties":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Parties").html("<h4>La liste des parties:</h4> <?php parties() ?>")
             break;
         case "decks":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Decks").html("<h4>La liste des main:</h4> <?php decks() ?>")
             break;
         case "versions":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Versions").html("<h4>La liste des versions:</h4> <?php versions() ?>")
             break;
         //////Relations
         case "playerPosCard":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Cards").html("<h4>La liste des cartes:</h4> <?php playerPosCard() ?>")
             break;
         case "playerPosDeck":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Parties").html("<h4>La liste des parties:</h4> <?php playerPosDeck() ?>")
             break;
         case "deckPosCard":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Decks").html("<h4>La liste des main:</h4> <?php deckPosCard() ?>")
             break;
         case "playerGame":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Versions").html("<h4>La liste des versions:</h4> <?php playerGame() ?>")
             break;
         //////Advanced
         case "cardNoDeck":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#CardNoDeck").html("<h4>cartes n'appartenants à aucune main:</h4> <?php cardnDeck() ?>")
             break;
         case "playerNoGame":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             $("#PlayerNoGame").html("<h4>Les joueurs n'ayant aucune partie:</h4> <?php pWithoutGame() ?>");
             break;
             //Stats
         case ("pCards"):
+            $("#statistics").show();
             $("#welcome").html("<h3>Statistiques</h3>")
             $('#PCards').html("<h4>Les cartes avec le nombre de joueurs qui les utilisent:</h4> <?php playersCards() ?>");
             break;
         case ("pValues"):
+            $("#statistics").show();
             $("#welcome").html("<h3>Statistiques</h3>")
             $("#PValues").html("<h4>Les joueurs avec les valeurs de leurs cartes:</h4> <?php playersValues() ?>")
             break;
         case ("cPlayers"):
+            $("#statistics").show();
             $("#welcome").html("<h3>Statistiques</h3>")
             $("#CPlayers").html("<h4>Les cartes avec le nombre de joueurs qui l'utilisent:</h4> <?php cardsPlayers() ?>")
             break;
         case ("pRare"):
+            $("#statistics").show();
             $("#welcome").html("<h3>Statistiques</h3>")
             $("#PRare").html("<h4>Les joueurs avec leurs cartes rares:</h4> <?php playersRare() ?>")
             break;
         case ("cardsFamily"):
+            $("#statistics").show();
             $("#welcome").html("<h3>Statistiques</h3>")
             $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
             break;
 
         ////////////////////////////////// PLAYER /////////////////////////////////////
         case ("chosePlayer"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuPlayer").show();
             break;
         case ("addPlayer"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'playerName';
@@ -563,6 +601,7 @@
             }
             break;
         case ("deletePlayer"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'playerPseudo';
@@ -579,10 +618,12 @@
             break;
         ////////////////////////////////// CARD /////////////////////////////////////
         case ("choseCard"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuCard").show();
             break;
         case ("addCard"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'cardTitle';
@@ -615,6 +656,7 @@
             }
             break;
         case ("deleteCard"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'cardID';
@@ -631,10 +673,12 @@
             break;
         ////////////////////////////////// GAME /////////////////////////////////////
         case ("choseGame"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuGame").show();
             break;
         case ("addGame"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'gameDate';
@@ -656,6 +700,7 @@
             }
             break;
         case ("deleteGame"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'gameNumber';
@@ -672,10 +717,12 @@
             break;
         ////////////////////////////////// DECK /////////////////////////////////////
         case ("choseDeck"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuDeck").show();
             break;
         case ("addDeck"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'deckName';
@@ -691,6 +738,7 @@
             }
             break;
         case ("deleteDeck"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'deckName';
@@ -707,10 +755,12 @@
             break;
         ////////////////////////////////// VERSION /////////////////////////////////////
         case ("choseVersion"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuVersion"    ).show();
             break;
         case ("addVersion"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'impressionDate';
@@ -734,6 +784,7 @@
             }
             break;
         case ("deleteVersion"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'versionName';
@@ -749,6 +800,7 @@
             }
             break;
         case ("cardPlayer"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'playerPseudo';
@@ -767,6 +819,7 @@
             }
             break;
         case ("gamePlayer"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'gameName';
@@ -785,6 +838,7 @@
             }
             break;
         case ("deckPlayer"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'deckName';
@@ -803,6 +857,7 @@
             }
             break;
         case ("cardDeck"):
+            $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'deckName';
@@ -823,12 +878,20 @@
         
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////NAVBAR/////////////////////////////////////
+    $("consultation").click(function() {
+        document.location.href = '?page=consultations'
+    })
 
-    $("#ty").click(function() {
-        console.log("ehehehh")
-        var valeur = document.forms['ID_FORMULAIRE'].elements['type'].value;
-        document.location.href = '?page=cardType&type=' + valeur;
-    });
+    $("statistic").click(function() {
+        document.location.href = '?page=statistics'
+    })
+
+    $("update").click(function() {
+        document.location.href = '?page=updates'
+    })
+
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -860,6 +923,12 @@
 
     ////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// CARD /////////////////////////////////////
+
+    $("#ty").click(function() {
+        var valeur = document.forms['ID_FORMULAIRE'].elements['type'].value;
+        document.location.href = '?page=cardType&type=' + valeur;
+    });
+
 
     $("#addCardChose").click(function() {
         document.location.href = '?page=addCard'
@@ -1084,7 +1153,7 @@
         }
     }
 
-    h3 {
+    h4 {
         color: #4b4b4b;
     }
 
