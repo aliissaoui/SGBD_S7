@@ -76,7 +76,6 @@
                         <li><a href="?page=addGame" id="addGame">Ajouter/Supprimer une partie</a></li>
                         <li><a href="?page=addDeck" id="pRare">Ajouter/Supprimer une main</a></li>
                         <li><a href="?page=addVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li>
-                        <li><a href="?page=cardsFamily" id="cardsFamily">Ajouter/Supprimer une carte à une main d'un joueur</a></li>
                     </ul>
                 </div>
                 <!--/.well -->
@@ -122,7 +121,7 @@
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
-                            <a id='addPButton' class='button-class'>Ajouter</a>                        
+                            <a id='addPButton' class='button-class'>Ajouter</a>
                         </div>
                     </form>
 
@@ -175,7 +174,7 @@
                             <input type="text" name="CardDeck" id="CardDeck">
                         </div>
                         <div>
-                            <a id='addCButton' class='button-class'>Ajouter</a>         
+                            <a id='addCButton' class='button-class'>Ajouter</a>
                         </div>
 
                     </form>
@@ -205,12 +204,52 @@
                         </div>
 
                         <div>
-                        <a id='addGButton' class='button-class'>Ajouter</a>   
+                            <a id='addGButton' class='button-class'>Ajouter</a>
                         </div>
                     </form>
                 </div>
-                <div id="PRare" style="text-align: center;"></div>
-                <div id="CardsFamily" style="text-align: center;"></div>
+                <div id="AddDeck" style="text-align: center;">
+                    <form id="addDForm">
+                        <h3>Ajouter une Main</h3>
+                        <div>
+                            <label for="DeckName">Nom la main*: </label>
+                            <input type="text" name="DeckName" id="DeckName" required>
+                        </div>
+                        <div>
+                            <a id='addDButton' class='button-class'>Ajouter</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="AddVersion" style="text-align: center;">
+                    <form id="addVForm">
+                        <h3>Ajouter une Version de carte</h3>
+                        <div>
+                            <label for="cardVID">Id de la carte*:</label>
+                            <input type="numero" name="cardVID" id="cardVID" required>
+                        </div>
+                        <div>
+                            <label for="ImpressionDate">Date de l'impression*:</label>
+                            <input type="date" name="ImpressionDate" id="ImpressionDate" required>
+                        </div>
+                        <div>
+                            <label for="Rendu">Le rendu de la version de carte*: </label>
+                            <input type="number" name="Rendu" id="Rendu" required>
+                        </div>
+                        <div>
+                            <label for="Tirage">Le tirage de la version de carte*: </label>
+                            <input type="number" name="Tirage" id="Tirage" required>
+                        </div>
+                        <div>
+                            <label for="Cote">La cote de la version de carte*: </label>
+                            <input type="number" name="Cote" id="Cote" required>
+                        </div>
+
+
+                        <div>
+                            <a id='addVButton' class='button-class'>Ajouter</a>
+                        </div>
+                        </form>
+                </div>
 
                 <hr>
 
@@ -232,7 +271,7 @@
 
 <script>
     var hd = function(keep) {
-        var funcs = new Array("#AddPlayer", "#AddCard", "#AddGame");
+        var funcs = new Array("#AddPlayer", "#AddCard", "#AddGame", "#AddVersion", "#AddDeck");
         funcs.forEach(elem => {
             if (elem != keep) {
                 $(elem).hide();
@@ -250,19 +289,17 @@
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'type';
             var url = window.location.href;
-            if(url.indexOf('&'+field+'=') == -1){
+            if (url.indexOf('&' + field + '=') == -1) {
                 $("#CardType").html("<div style='text-align: center;'><form id='ID_FORMULAIRE'><h4>Veuillez entre le nom du type:<input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> <h4></form></div>")
-            }
-            else {
+            } else {
                 var tab = "<?php if (isset($_GET['type'])) consltType($_GET['type']) ?>"
                 $("#CardType").html("<h4>Les cartes de type:" + type + "</h4>" + tab);
             }
             break;
         case "players":
             $("#welcome").html("<h3>Consultation</h3>")
-            console.log("HEHEH");
             $("#Players").html("<h4>La liste des joueurs:</h4> <?php players() ?>")
-            break;  
+            break;
         case "cards":
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Cards").html("<h4>La liste des cartes:</h4> <?php cartes() ?>")
@@ -278,7 +315,7 @@
         case "versions":
             $("#welcome").html("<h3>Consultation</h3>")
             $("#Versions").html("<h4>cLa liste des versions:</h4> <?php versions() ?>")
-            break;         
+            break;
         case "cardNoDeck":
             $("#welcome").html("<h3>Consultation</h3>")
             $("#CardNoDeck").html("<h4>cartes n'appartenants à aucune main:</h4> <?php cardnDeck() ?>")
@@ -309,66 +346,120 @@
             $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
             break;
         case ("addPlayer"):
-            $("#welcome").html("<h3>Mise à jours</h3>")
+            $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'playerName';
             var url = window.location.href;
-            if(url.indexOf('&'+field+'=') == -1){
-                $("#welcome").html("<h3>Mise à Jours</h3>")
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
                 $('#AddPlayer').show();
-            }
-            else {
-                var add = "<?php if(isset($_GET['playerName']) && 
-                                    isset($_GET['playerFirstName']) && 
-                                    isset($_GET['playerPseudo'])) 
-                                    addPlayer($_GET['playerName'], $_GET['playerFirstName'], $_GET['playerPseudo']);?>"
+            } else {
+                var add = "<?php if (
+                                isset($_GET['playerName']) &&
+                                isset($_GET['playerFirstName']) &&
+                                isset($_GET['playerPseudo'])
+                            )
+                                addPlayer($_GET['playerName'], $_GET['playerFirstName'], $_GET['playerPseudo']); ?>"
             }
             break;
         case ("addCard"):
-            $("#welcome").html("<h3>Mise à jours</h3>")
+            $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'cardID';
             var url = window.location.href;
-            if(url.indexOf('&'+field+'=') == -1){
-                $("#welcome").html("<h3>Mise à Jours</h3>")
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
                 $('#AddCard').show();
-            }
-            else {
-                var add = "<?php if(isset($_GET['cardID']) &&
-                                    isset($_GET['cardTitle']) &&
-                                    isset($_GET['cardDescription']) &&
-                                    isset($_GET['cardType']) && 
-                                    isset($_GET['cardFam']) && 
-                                    isset($_GET['attack']) && 
-                                    isset($_GET['defence']) && 
-                                    isset($_GET['speed'])) {
-                                            addCard($_GET['cardID'], $_GET['cardTitle'], $_GET['cardDescription'], $_GET['cardType'], 
-                                            $_GET['cardFam'], $_GET['attack'], $_GET['defence'], $_GET['speed']);
-                                            echo "salam";}
-                                    ?>";
+            } else {
+                var add = "<?php if (
+                                isset($_GET['cardID']) &&
+                                isset($_GET['cardTitle']) &&
+                                isset($_GET['cardDescription']) &&
+                                isset($_GET['cardType']) &&
+                                isset($_GET['cardFam']) &&
+                                isset($_GET['attack']) &&
+                                isset($_GET['defence']) &&
+                                isset($_GET['speed'])
+                            ) {
+                                addCard(
+                                    $_GET['cardID'],
+                                    $_GET['cardTitle'],
+                                    $_GET['cardDescription'],
+                                    $_GET['cardType'],
+                                    $_GET['cardFam'],
+                                    $_GET['attack'],
+                                    $_GET['defence'],
+                                    $_GET['speed']
+                                );
+                            }
+                            ?>";
 
             }
             break;
         case ("addGame"):
-            $("#welcome").html("<h3>Mise à jours</h3>")
+            $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'gameDate';
             var url = window.location.href;
-            if(url.indexOf('&'+field+'=') == -1){
-                $("#welcome").html("<h3>Mise à Jours</h3>")
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
                 $('#AddGame').show();
-            }
-            else {
-                var add = "<?php if(isset($_GET['GameDate']) &&
-                                    isset($_GET['GamePlace']) &&
-                                    isset($_GET['GameType']) &&
-                                    isset($_GET['GameResult'])) {
-                                        addParty($_GET['GameDate'], $_GET['GamePlace'], $_GET['GameType'], $_GET['GameResult']);
-                                            echo "salam";}
-                                    ?>";
+            } else {
+                var add = "<?php if (
+                                isset($_GET['gameDate']) &&
+                                isset($_GET['gamePlace']) &&
+                                isset($_GET['gameType']) &&
+                                isset($_GET['gameResult'])
+                            ) {
+                                addParty($_GET['gameDate'], $_GET['gamePlace'], $_GET['gameType'], $_GET['gameResult']);
+                            }
+                            ?>";
 
             }
             break;
+        case ("addDeck"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'deckName';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#AddDeck').show();
+            } else {
+                var add = "<?php if (isset($_GET['deckName'])) {
+                                addDeck($_GET['deckName']);
+                                echo "salam";
+                            }
+                            ?>";
+
+            }
+            break;
+        case ("addVersion"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'impressionDate';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#AddVersion').show();
+            } else {
+                console.log("DID IT");
+                var add = "<?php if (
+                                isset($_GET['cardVID']) &&
+                                isset($_GET['impressionDate']) &&
+                                isset($_GET['rendu']) &&
+                                isset($_GET['tirage']) &&
+                                isset($_GET['cote'])
+                            ) {
+                                addVersion($_GET['cardVID'], $_GET['impressionDate'], $_GET['rendu'], $_GET['tirage'], $_GET['cote']);
+                                echo($_GET['cardVID']);
+                            }
+                            ?>";
+                console.log(add);
+
+            }
+            break;
+
     }
 
     $("#ty").click(function() {
@@ -376,16 +467,16 @@
         document.location.href = '?page=cardType&type=' + valeur;
     });
 
-    $('#addPButton').click(function() {
+    $('#addPButton').click(function() {
         var nom = document.forms['addPForm'].elements['PlayerName'].value;
         var prenom = document.forms['addPForm'].elements['PlayerFirstName'].value;
         var pseudo = document.forms['addPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addPlayer&playerName='+ nom+'&playerFirstName='+prenom+'&playerPseudo='+pseudo;
+        document.location.href = '?page=addPlayer&playerName=' + nom + '&playerFirstName=' + prenom + '&playerPseudo=' + pseudo;
         alert("Player added");
     });
 
 
-    $('#addCButton').click(function() {
+    $('#addCButton').click(function() {
         var name = document.forms['addCForm'].elements['CardID'].value;
         var title = document.forms['addCForm'].elements['CardTitle'].value;
         var desc = document.forms['addCForm'].elements['CardDescription'].value;
@@ -394,30 +485,49 @@
         var att = document.forms['addCForm'].elements['Attack'].value;
         var def = document.forms['addCForm'].elements['Defence'].value;
         var spe = document.forms['addCForm'].elements['Speed'].value;
-        document.location.href = '?page=addCard&cardID='+name+
-                                  '&cardTitle='+title+
-                                  '&cardDescription='+desc+
-                                  '&cardType='+type+
-                                  '&cardFam='+fam+
-                                  '&attack='+att+
-                                  '&defence='+def+
-                                  '&speed='+spe;
+        document.location.href = '?page=addCard&cardID=' + name +
+            '&cardTitle=' + title +
+            '&cardDescription=' + desc +
+            '&cardType=' + type +
+            '&cardFam=' + fam +
+            '&attack=' + att +
+            '&defence=' + def +
+            '&speed=' + spe;
 
         alert("Card added");
     });
 
-    $('#addGButton').click(function() {
+    $('#addGButton').click(function() {
         var date = document.forms['addGForm'].elements['GameDate'].value;
         var place = document.forms['addGForm'].elements['GamePlace'].value;
         var type = document.forms['addGForm'].elements['GameType'].value;
         var result = document.forms['addGForm'].elements['GameResult'].value;
-        document.location.href = '?page=addGame&gameDate='+date+
-                                  '&gamePlace='+place+
-                                  '&gameType='+type+
-                                  '&gameResult='+result
+        document.location.href = '?page=addGame&gameDate=' + date +
+            '&gamePlace=' + place +
+            '&gameType=' + type +
+            '&gameResult=' + result
         alert("Game added");
     });
 
+    $('#addDButton').click(function() {
+        var name = document.forms['addDForm'].elements['DeckName'].value;
+        document.location.href = '?page=addDeck&deckName=' + name
+        alert("Deck added");
+    });
+
+    $('#addVButton').click(function() {
+        var card = document.forms['addVForm'].elements['cardVID'].value;
+        var date = document.forms['addVForm'].elements['ImpressionDate'].value;
+        var rendu = document.forms['addVForm'].elements['Rendu'].value;
+        var tirage = document.forms['addVForm'].elements['Tirage'].value;
+        var cote = document.forms['addVForm'].elements['Cote'].value;
+        document.location.href = '?page=addVersion&impressionDate=' + date +
+            '&cardVID=' + card +
+            '&rendu=' + rendu +
+            '&tirage=' + tirage +
+            '&cote=' + cote
+        alert("Version added");
+    });
 </script>
 
 <!-- Le styles -->

@@ -176,10 +176,10 @@ function addDeck($nom)
     mysqli_query($link,$sql);
 }
 
-function addVersion($date_impression, $rendu, $tirage, $cote)
+function addVersion($card, $date_impression, $rendu, $tirage, $cote)
 {
     global $link;
-    $sql = " insert into Versions (date_impression, rendu, tirage, cote) values('".$date_impression."','".$rendu."','".$tirage."','".$cote."' ) ";
+    $sql = " insert into Versions (id_carte ,date_impression, rendu, tirage, cote) values('".$card."','".$date_impression."','".$rendu."','".$tirage."','".$cote."' ) ";
     mysqli_query($link,$sql);
 }
 
@@ -214,35 +214,36 @@ function addPartiesjouees($n_partie, $pseudonyme, $n_deck, $nb_joueurs)
 function players()
 {
     global $link;
-    $sql = "select distinct * from Joueurs";
-    mysqli_query($link,$sql);
+    $sql = "select * from Joueurs";
+    echo display_data(mysqli_query($link,$sql));
+
 }
 
 function cartes()
 {
     global $link;
     $sql = "select distinct * from Cartes";
-    mysqli_query($link,$sql);
+    echo display_data(mysqli_query($link,$sql));
 }
 
 function decks()
 {
     global $link;
     $sql = "select distinct * from Decks";
-    mysqli_query($link,$sql);
+    echo display_data(mysqli_query($link,$sql));
 }
 
 function parties()
 {
     global $link;
     $sql = "select distinct * from Parties";
-    mysqli_query($link,$sql);
+    echo display_data(mysqli_query($link,$sql));
 }
 
 function versions()
 {
     global $link;
     $sql = "select distinct * from Versions";
-    mysqli_query($link,$sql);
+    echo display_data(mysqli_query($link,$sql));
 }
 ?>
