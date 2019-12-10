@@ -254,7 +254,7 @@ function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $date_non
     mysqli_query($link,$sql);
 }
 
-function deletePossesiondecks($n_deck, $pseudonyme)
+function deletePossesioncartes($n_deck, $pseudonyme)
 {
     global $link;
     $sql = " delete from Possessiondecks where n_deck='".$n_deck."' and pseudonyme='".$pseudonyme."' ";
