@@ -950,21 +950,75 @@
     ////////////////////////////////////////////////////////////////////////////
 
     $('#addCPButton').click(function() {
-        var title = document.forms['addCPForm'].elements['CardTitle'].value;
+        var ID = document.forms['addCPForm'].elements['CardID'].value;
         var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addCardPlayer&cardTitle=' + title 
+        document.location.href = '?page=addCardPlayer&cardID=' + ID 
             'playerPseudo=' + pseudo;
 
         alert("Card changed owner");
     });
 
     $('#addGPButton').click(function() {
-        var name = document.forms['addGPForm'].elements['GameName'].value;
+        var number = document.forms['addGPForm'].elements['GameNumber'].value;
         var pseudo = document.forms['addGPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addGamePlayer&gameName=' + name +
+        document.location.href = '?page=addGamePlayer&gameNumber=' + number +
             'playerPseudo=' + pseudo;
 
         alert("The player successfully played a game");
+    });
+
+    $('#addDPButton').click(function() {
+        var name = document.forms['addDPForm'].elements['DeckName'].value;
+        var pseudo = document.forms['addDPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addDeckPlayer&deckName=' + name +
+            'playerPseudo=' + pseudo;
+
+        alert("The player owns a deck");
+    });
+
+    $('#addDCButton').click(function() {
+        var name = document.forms['addDCForm'].elements['DeckName'].value;
+        var ID = document.forms['addDCForm'].elements['CardID'].value;
+        document.location.href = '?page=addDeckCard&deckName=' + name +
+            'cardID=' + ID;
+
+        alert("The deck contains a card");
+    });
+
+    $('#deleteCPButton').click(function() {
+        var ID = document.forms['addCPForm'].elements['CardID'].value;
+        var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addCardPlayer&cardID=' + ID 
+            'playerPseudo=' + pseudo;
+
+        alert("Card changed owner");
+    });
+
+    $('#deleteGPButton').click(function() {
+        var number = document.forms['addGPForm'].elements['GameNumber'].value;
+        var pseudo = document.forms['addGPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addGamePlayer&gameNumber=' + number +
+            'playerPseudo=' + pseudo;
+
+        alert("The player successfully played a game");
+    });
+
+    $('#deleteDPButton').click(function() {
+        var name = document.forms['addDPForm'].elements['DeckName'].value;
+        var pseudo = document.forms['addDPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addDeckPlayer&deckName=' + name +
+            'playerPseudo=' + pseudo;
+
+        alert("The player owns a deck");
+    });
+
+    $('#deleteDCButton').click(function() {
+        var name = document.forms['addDCForm'].elements['DeckName'].value;
+        var ID = document.forms['addDCForm'].elements['CardID'].value;
+        document.location.href = '?page=addDeckCard&deckName=' + name +
+            'cardID=' + ID;
+
+        alert("The deck contains a card");
     });
 
     });
