@@ -85,8 +85,6 @@
                         <li><a href="?page=gamePlayer" id="addGamePlayer">Ajouter/Supprimer une partie jouées par un joueur</a></li>
                         <li><a href="?page=gamePlayer" id="addCardDeck">Ajouter/Supprimer une carte à une main</a></li>
 
-
-
                     </ul>
                 </div>
                 <!--/.well -->
@@ -282,7 +280,7 @@
                     <form id="deleteDForm">
                         <h3>Supprimer une main</h3>
                         <div>
-                            <label for="Deck">Numero de la version*: </label>
+                            <label for="DeckName">Numero de la version*: </label>
                             <input type="text" name="DeckName" id="DeckName" required>
                         </div>
                         <div>
@@ -318,27 +316,12 @@
                             <label for="Cote">La cote de la version de carte*: </label>
                             <input type="number" name="Cote" id="Cote" required>
                         </div>
-
-
-                        <div>
                             <a id='addVButton' class='button-class'>Ajouter</a>
                         </div>
                         </form>
                 </div>
-                <div id="DeleteVersion" style="text-align: center;">
-                    <form id="deleteVForm">
-                        <h3>Supprimer une version de carte</h3>
-                        <div>
-                            <label for="VersionName">Numero de la version*: </label>
-                            <input type="text" name="VersionName" id="VersionName" required>
-                        </div>
-                        <div>
-                            <a id='deleteVButton' class='button-class'>Supprimer</a>
-                        </div>
-                    </form>
-                </div>
                 <div id="AddCP" style="text-align: center;">
-                    <form id="addCPForm">
+                   <form id="addCPForm">
                         <h3>Ajouter une carte à un joueur</h3>
                         <div>
                             <label for="CardTitle">Titre de la carte*: </label>
@@ -350,6 +333,20 @@
                         </div>
                         <div>
                             <a id='addCPButton' class='button-class'>Ajouter</a>
+                        </div>
+                    </form>
+                </div>
+
+                        <div>
+                <div id="DeleteVersion" style="text-align: center;">
+                    <form id="deleteVForm">
+                        <h3>Supprimer une version de carte</h3>
+                        <div>
+                            <label for="VersionName">Numero de la version*: </label>
+                            <input type="text" name="VersionName" id="VersionName" required>
+                        </div>
+                        <div>
+                            <a id='deleteVButton' class='button-class'>Supprimer</a>
                         </div>
                     </form>
                 </div>
@@ -378,7 +375,7 @@
                               "#AddVersion", "#AddDeck", "#MenuCard",
                               "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
                               "#DeleteDeck","#DeleteCard","#DeleteVersion","#DeleteGame",
-                              "#DeletePlayer","AddCP");
+                              "#DeletePlayer","#AddCP");
         funcs.forEach(elem => {
             if (elem != keep) {
                 $(elem).hide();
@@ -421,7 +418,7 @@
             break;
         case "versions":
             $("#welcome").html("<h3>Consultation</h3>")
-            $("#Versions").html("<h4>cLa liste des versions:</h4> <?php versions() ?>")
+            $("#Versions").html("<h4>La liste des versions:</h4> <?php versions() ?>")
             break;
         case "cardNoDeck":
             $("#welcome").html("<h3>Consultation</h3>")
@@ -452,6 +449,8 @@
             $("#welcome").html("<h3>Statistiques</h3>")
             $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
             break;
+
+        ////////////////////////////////// PLAYER /////////////////////////////////////
         case ("chosePlayer"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuPlayer").show();
@@ -471,6 +470,8 @@
                                 isset($_GET['playerPseudo'])
                             )
                                 addPlayer($_GET['playerName'], $_GET['playerFirstName'], $_GET['playerPseudo']); ?>"
+                $('#AddPlayer').show();
+
             }
             break;
         case ("deletePlayer"):
@@ -488,6 +489,7 @@
                                 deletePlayer($_GET['playerPseudo']); ?>"
             }
             break;
+        ////////////////////////////////// CARD /////////////////////////////////////
         case ("choseCard"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuCard").show();
@@ -524,6 +526,22 @@
 
             }
             break;
+        case ("deleteCard"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'cardID';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#DeleteCard').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['playerPseudo'])
+                            )
+                                deleteCard($_GET['playerPseudo']); ?>"
+            }
+            break;
+        ////////////////////////////////// GAME /////////////////////////////////////
         case ("choseGame"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuGame").show();
@@ -549,6 +567,22 @@
 
             }
             break;
+        case ("deleteGame"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'gameNumber';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#DeleteGame').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['gameNumber'])
+                            )
+                                deleteGame($_GET['gameNumber']); ?>"
+            }
+            break;
+        ////////////////////////////////// DECK /////////////////////////////////////
         case ("choseDeck"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuDeck").show();
@@ -564,12 +598,26 @@
             } else {
                 var add = "<?php if (isset($_GET['deckName'])) {
                                 addDeck($_GET['deckName']);
-                                echo "salam";
                             }
                             ?>";
-
             }
             break;
+        case ("deleteDeck"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'deckName';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#DeleteDeck').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['deckName'])
+                            )
+                                deleteDeck($_GET['deckName']); ?>"
+            }
+            break;
+        ////////////////////////////////// VERSION /////////////////////////////////////
         case ("choseVersion"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             $("#MenuVersion"    ).show();
@@ -583,7 +631,6 @@
                 $("#welcome").html("<h3>Mise à Jour</h3>")
                 $('#AddVersion').show();
             } else {
-                console.log("DID IT");
                 var add = "<?php if (
                                 isset($_GET['cardVID']) &&
                                 isset($_GET['impressionDate']) &&
@@ -595,18 +642,32 @@
                                 echo($_GET['cardVID']);
                             }
                             ?>";
-                console.log(add);
 
             }
             break;
-        case ("addCardPlayer"):
+        case ("deleteVersion"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'versionName';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#DeleteVersion').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['versionName'])
+                            )
+                                deleteVersion($_GET['versionName']); ?>"
+            }
+            break;
+        case ("cardPlayer"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'playerPseudo';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
                 $("#welcome").html("<h3>Mise à Jour</h3>")
-                $('#AddCP').show();
+                $("#AddCP").show();
             } else {
                 var add = "<?php if (
                                 isset($_GET['cardTitle']) &&
@@ -616,6 +677,7 @@
                             }
                             ?>";
             }
+            break;
         
     }
 
@@ -624,47 +686,20 @@
         document.location.href = '?page=cardType&type=' + valeur;
     });
 
+
+    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// PLAYER ///////////////////////////////////
+
     $("#addPlayerChose").click(function() {
         document.location.href = '?page=addPlayer'
         $("#MenuPlayer").hide();
-    });
-    $("#addCardChose").click(function() {
-        document.location.href = '?page=addCard'
-        $("#MenuCard").hide();
-    });
-    $("#addDeckChose").click(function() {
-        document.location.href = '?page=addDeck'
-        $("#MenuDeck").hide();
-    });
-    $("#addVersionChose").click(function() {
-        document.location.href = '?page=addVersion'
-        $("#MenuVersion").hide();
-    });
-    $("#addGameChose").click(function() {
-        document.location.href = '?page=addGame'
-        $("#MenuGame").hide();
     });
 
     $("#deletePlayerChose").click(function() {
         document.location.href = '?page=deletePlayer'
         $("#MenuPlayer").hide();
     });
-    $("#deleteCardChose").click(function() {
-        document.location.href = '?page=deleteCard'
-        $("#MenuCard").hide();
-    });
-    $("#deleteDeckChose").click(function() {
-        document.location.href = '?page=deleteDeck'
-        $("#MenuDeck").hide();
-    });
-    $("#deleteVersionChose").click(function() {
-        document.location.href = '?page=deleteVersion'
-        $("#MenuVersion").hide();
-    });
-    $("#deleteGameChose").click(function() {
-        document.location.href = '?page=deleteGame'
-        $("#MenuGame").hide();
-    });
+
     $('#addPButton').click(function() {
         var nom = document.forms['addPForm'].elements['PlayerName'].value;
         var prenom = document.forms['addPForm'].elements['PlayerFirstName'].value;
@@ -672,12 +707,25 @@
         document.location.href = '?page=addPlayer&playerName=' + nom + '&playerFirstName=' + prenom + '&playerPseudo=' + pseudo;
         alert("Player added");
     });
+
     $('#deletePButton').click(function() {
         var pseudo = document.forms['deletePForm'].elements['PlayerPseudo'].value;
         document.location.href = '?page=addPlayer&playerPseudo=' + pseudo;
-        alert("Player added");
+        alert("Player Deleted");
     });
 
+    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// CARD /////////////////////////////////////
+
+    $("#addCardChose").click(function() {
+        document.location.href = '?page=addCard'
+        $("#MenuCard").hide();
+    });
+
+    $("#deleteCardChose").click(function() {
+        document.location.href = '?page=deleteCard'
+        $("#MenuCard").hide();
+    });
 
     $('#addCButton').click(function() {
         var title = document.forms['addCForm'].elements['CardTitle'].value;
@@ -698,13 +746,24 @@
         alert("Card added");
     });
 
-    $('#addCPButton').click(function() {
-        var title = document.forms['addCPForm'].elements['CardTitle'].value;
-        var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addCardPlayer&cardTitle=' + title +
-            'playerPseudo=' + pseudo;
+    $('#deleteCButton').click(function() {
+        var cardID = document.forms['deleteCForm'].elements['cardID'].value;
+        document.location.href = '?page=addCard&cardID=' + cardID;
+        alert("Card Deleted");
+    });
 
-        alert("Card changed owner");
+    /////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// GAME ///////////////////////////////////
+
+    
+    $("#addGameChose").click(function() {
+        document.location.href = '?page=addGame'
+        $("#MenuGame").hide();
+    });
+
+    $("#deleteGameChose").click(function() {
+        document.location.href = '?page=deleteGame'
+        $("#MenuGame").hide();
     });
 
     $('#addGButton').click(function() {
@@ -719,10 +778,49 @@
         alert("Game added");
     });
 
+    $('#deleteGButton').click(function() {
+        var GameID = document.forms['deleteGForm'].elements['GameNumber'].value;
+        document.location.href = '?page=addGame&gameNumber=' + GameID;
+        alert("Game Deleted");
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// DECK /////////////////////////////////////
+
+    $("#addDeckChose").click(function() {
+        document.location.href = '?page=addDeck'
+        $("#MenuDeck").hide();
+    });
+
+    $("#deleteDeckChose").click(function() {
+        document.location.href = '?page=deleteDeck'
+        $("#MenuDeck").hide();
+    });
+
     $('#addDButton').click(function() {
         var name = document.forms['addDForm'].elements['DeckName'].value;
         document.location.href = '?page=addDeck&deckName=' + name
         alert("Deck added");
+    });
+
+    $('#deleteDButton').click(function() {
+        var deck = document.forms['deleteDForm'].elements['DeckName'].value;
+        document.location.href = '?page=addDeck&deckName=' + deck;
+        alert("Deck Deleted");
+    });
+    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// VERSION ///////////////////////////////////
+
+
+    $("#addVersionChose").click(function() {
+        document.location.href = '?page=addVersion'
+        $("#MenuVersion").hide();
+    });
+
+    $("#deleteVersionChose").click(function() {
+        document.location.href = '?page=deleteVersion'
+        $("#MenuVersion").hide();
     });
 
     $('#addVButton').click(function() {
@@ -737,6 +835,23 @@
             '&tirage=' + tirage +
             '&cote=' + cote
         alert("Version added");
+
+    $('#deleteVButton').click(function() {
+        var version = document.forms['deleteVForm'].elements['VersionName'].value;
+        document.location.href = '?page=addVersion&versionName=' + version;
+        alert("Version Deleted");
+    });
+    ////////////////////////////////////////////////////////////////////////////
+
+    $('#addCPButton').click(function() {
+        var title = document.forms['addCPForm'].elements['CardTitle'].value;
+        var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addCardPlayer&cardTitle=' + title 
+            'playerPseudo=' + pseudo;
+
+        alert("Card changed owner");
+    });
+
     });
 </script>
 
@@ -783,24 +898,6 @@
         font-size: 17px;
         color: #5a5a5a;
     }
-
-    /* table {
-        border-collapse: collapse;
-        border: 1px solid #588c7e;
-        width: 75%;
-        color: #588c7e;
-        text-align: center;
-        border-color: #588c7e;
-    }
-
-    th {
-        background-color: #989898;
-        color: white
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2
-    } */
 </style>
 
 
