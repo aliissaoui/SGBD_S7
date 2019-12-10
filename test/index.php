@@ -30,7 +30,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
-                </button>
+                </a>
                 <a class="brand" href="#">Projet SGBD : Carte à collectionner</a>
                 <div>
                     <ul class="nav">
@@ -104,6 +104,16 @@
                 <div id="welcome">
                     <h2> Bienvenu dans le service des cartes. </h2>
                 </div>
+                <div id="CardTypeF" style='text-align: center;'>
+                    <form id='ID_FORMULAIRE'>
+                    <h4>
+                        Veuillez entre le nom du type:
+                        <input type='text' id='type' name='type' size='10'>
+                            <button id='ty' class='btn btn-primary' type="button">Ok</button> 
+                    <h4>
+                    </form> 
+                </div>
+                <div id="CardTypeResult"></div>
                 <div id="Players"></div>
                 <div id="Cards"></div>
                 <div id="Decks"></div>
@@ -139,7 +149,7 @@
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
-                            <a id='addPButton' class='button-class'>Ajouter</a>
+                            <button id='addPButton' class='btn btn-primary' type="button">Ajouter</button>
                         </div>
                     </form>
                 </div>
@@ -151,7 +161,7 @@
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
-                            <a id='deletePButton' class='button-class'>Supprimer</a>
+                            <button id='deletePButton' class='btn btn-primary'  type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -203,7 +213,7 @@
                             <input type="text" name="CardDeck" id="CardDeck">
                         </div>
                         <div>
-                            <a id='addCButton' class='button-class'>Ajouter</a>
+                            <button id='addCButton' class='btn btn-primary' type="button">Ajouter</button>
                         </div>
 
                     </form>
@@ -216,7 +226,7 @@
                             <input type="text" name="cardID" id="cardID" required>
                         </div>
                         <div>
-                            <a id='deleteCButton' class='button-class'>Supprimer</a>
+                            <button id='deleteCButton' class='btn btn-primary'>Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -249,7 +259,7 @@
                         </div>
 
                         <div>
-                            <a id='addGButton' class='button-class'>Ajouter</a>
+                            <button id='addGButton' class='btn btn-primary' type="button">Ajouter</button>
                         </div>
                     </form>
                 </div>
@@ -261,7 +271,7 @@
                             <input type="text" name="GameNumber" id="GameNumber" required>
                         </div>
                         <div>
-                            <a id='deleteGButton' class='button-class'>Supprimer</a>
+                            <button id='deleteGButton' class='btn btn-primary' type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -277,7 +287,7 @@
                             <input type="text" name="DeckName" id="DeckName" required>
                         </div>
                         <div>
-                            <a id='addDButton' class='button-class'>Ajouter</a>
+                            <button id='addDButton' class='btn btn-primary' type="button">Ajouter</button>
                         </div>
                     </form>
                 </div>
@@ -289,7 +299,7 @@
                             <input type="text" name="DeckName" id="DeckName" required>
                         </div>
                         <div>
-                            <a id='deleteDButton' class='button-class'>Supprimer</a>
+                            <button id='deleteDButton' class='btn btn-primary' type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -322,7 +332,7 @@
                             <input type="number" name="Cote" id="Cote" required>
                         </div>
                         <div>
-                            <a id='addVButton' class='button-class'>Ajouter</a>
+                            <button id='addVButton' class='btn btn-primary' type="button">Ajouter</button>
                         </div>
                     </form>
                 </div>
@@ -338,8 +348,8 @@
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
-                            <a id='addCPButton' class='button-class'>Ajouter</a>
-                            <a id='deleteCPButton' class='button-class'>Supprimer</a>
+                            <button id='addCPButton' class='btn btn-primary' type="button">Ajouter</button>
+                            <button id='deleteCPButton' class='btn btn-primary' type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -355,8 +365,8 @@
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
-                            <a id='addGPButton' class='button-class'>Ajouter</a>
-                            <a id='deleteGPButton' class='button-class'>Supprimer</a>
+                            <button id='addGPButton' class='btn btn-primary'  type="button">Ajouter</button>
+                            <button id='deleteGPButton' class='btn btn-primary'  type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -372,8 +382,8 @@
                             <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
                         </div>
                         <div>
-                            <a id='addDPButton' class='button-class'>Ajouter</a>
-                            <a id='deleteDPButton' class='button-class'>Supprimer</a>
+                            <button id='addDPButton' class='btn btn-primary'  type="button">Ajouter</button>
+                            <button id='deleteDPButton' class='btn btn-primary' type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -389,8 +399,8 @@
                             <input type="text" name="CardID" id="CardID" required>
                         </div>
                         <div>
-                            <a id='addDCButton' class='button-class'>Ajouter</a>
-                            <a id='deleteDCButton' class='button-class'>Supprimer</a>
+                            <button id='addDCButton' class='btn btn-primary' type="button">Ajouter</button>
+                            <button id='deleteDCButton' class='btn btn-primary' type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -403,7 +413,7 @@
                             <input type="text" name="VersionName" id="VersionName" required>
                         </div>
                         <div>
-                            <a id='deleteVButton' class='button-class'>Supprimer</a>
+                            <button id='deleteVButton' class='btn btn-primary' type="button">Supprimer</button>
                         </div>
                     </form>
                 </div>
@@ -426,8 +436,8 @@
 
 <script>
     var hd = function(keep) {
-        var funcs = new Array("#AddPlayer", "#AddCard", "#AddGame",
-                              "#AddVersion", "#AddDeck", "#MenuCard",
+        var funcs = new Array("#CardTypeF", "#CardTypeResult", "#AddPlayer", "#AddCard",
+                             "#AddGame", "#AddVersion", "#AddDeck", "#MenuCard",
                               "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
                               "#DeleteDeck","#DeleteCard","#DeleteVersion","#DeleteGame",
                               "#DeletePlayer","#AddCP","#AddGP","#AddDP","#AddDC");
@@ -450,10 +460,14 @@
             var field = 'type';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
-                $("#CardType").html("<div style='text-align: center;'><form id='ID_FORMULAIRE'><h4>Veuillez entre le nom du type:<input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> <h4></form>    >")
+                console.log("hello")
+                $("#welcome").html("<h3>Consultation</h3>")
+                $("#CardTypeF").show();
             } else {
+                $("#CardTypeF").hide();
                 var tab = "<?php if (isset($_GET['type'])) consltType($_GET['type']) ?>"
-                $("#CardType").html("<h4>Les cartes de type: " + type + "</h4>" + tab);
+                $("#CardTypeResult").html("<h4>Les cartes de type: " + type + "</h4>" + tab);
+                $("#CardTypeResult").show();
             }
             break;
         case "players":
@@ -811,6 +825,7 @@
 
 
     $("#ty").click(function() {
+        console.log("ehehehh")
         var valeur = document.forms['ID_FORMULAIRE'].elements['type'].value;
         document.location.href = '?page=cardType&type=' + valeur;
     });
@@ -1067,6 +1082,10 @@
             padding-left: 5px;
             padding-right: 5px;
         }
+    }
+
+    h3 {
+        color: #4b4b4b;
     }
 
     h5 {
