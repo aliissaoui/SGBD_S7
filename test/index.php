@@ -316,9 +316,10 @@
                             <label for="Cote">La cote de la version de carte*: </label>
                             <input type="number" name="Cote" id="Cote" required>
                         </div>
+                        <div>
                             <a id='addVButton' class='button-class'>Ajouter</a>
                         </div>
-                        </form>
+                    </form>
                 </div>
                 <div id="AddCP" style="text-align: center;">
                    <form id="addCPForm">
@@ -333,7 +334,7 @@
                         </div>
                         <div>
                             <a id='addCPButton' class='button-class'>Ajouter</a>
-                            <a id='deleteCPButton' class='button-class'>Ajouter</a>
+                            <a id='deleteCPButton' class='button-class'>Supprimer</a>
                         </div>
                     </form>
                 </div>
@@ -350,7 +351,7 @@
                         </div>
                         <div>
                             <a id='addGPButton' class='button-class'>Ajouter</a>
-                            <a id='deleteGPButton' class='button-class'>Ajouter</a>
+                            <a id='deleteGPButton' class='button-class'>Supprimer</a>
                         </div>
                     </form>
                 </div>
@@ -367,7 +368,7 @@
                         </div>
                         <div>
                             <a id='addDPButton' class='button-class'>Ajouter</a>
-                            <a id='deleteDPButton' class='button-class'>Ajouter</a>
+                            <a id='deleteDPButton' class='button-class'>Supprimer</a>
                         </div>
                     </form>
                 </div>
@@ -379,8 +380,8 @@
                             <input type="text" name="DeckName" id="DeckName" required>
                         </div>
                         <div>
-                            <label for="cardID">Id de la carte*: </label>
-                            <input type="text" name="cardID" id="cardID" required>
+                            <label for="CardID">Id de la carte*: </label>
+                            <input type="text" name="CardID" id="CardID" required>
                         </div>
                         <div>
                             <a id='addDCButton' class='button-class'>Ajouter</a>
@@ -389,7 +390,6 @@
                     </form>
                 </div>
 
-                        <div>
                 <div id="DeleteVersion" style="text-align: center;">
                     <form id="deleteVForm">
                         <h3>Supprimer une version de carte</h3>
@@ -414,8 +414,6 @@
             <p>HALA Mehdi, ISSAOUI Ali, BOUTGAYOUT Imad, FAIZ Abderrahmane 2019</p>
         </div>
     </footer>
-
-
 
 </body>
 
@@ -446,7 +444,7 @@
             var field = 'type';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
-                $("#CardType").html("<div style='text-align: center;'><form id='ID_FORMULAIRE'><h4>Veuillez entre le nom du type:<input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> <h4></form></div>")
+                $("#CardType").html("<div style='text-align: center;'><form id='ID_FORMULAIRE'><h4>Veuillez entre le nom du type:<input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> <h4></form>    >")
             } else {
                 var tab = "<?php if (isset($_GET['type'])) consltType($_GET['type']) ?>"
                 $("#CardType").html("<h4>Les cartes de type: " + type + "</h4>" + tab);
@@ -787,6 +785,7 @@
         
     }
 
+
     $("#ty").click(function() {
         var valeur = document.forms['ID_FORMULAIRE'].elements['type'].value;
         document.location.href = '?page=cardType&type=' + valeur;
@@ -941,20 +940,21 @@
             '&tirage=' + tirage +
             '&cote=' + cote
         alert("Version added");
+    });
 
     $('#deleteVButton').click(function() {
         var version = document.forms['deleteVForm'].elements['VersionName'].value;
         document.location.href = '?page=addVersion&versionName=' + version;
         alert("Version Deleted");
     });
-    ////////////////////////////////////////////////////////////////////////////
+
 
     $('#addCPButton').click(function() {
+        console.log("HHHHH");
         var ID = document.forms['addCPForm'].elements['CardID'].value;
         var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
         document.location.href = '?page=addCardPlayer&cardID=' + ID 
-            'playerPseudo=' + pseudo;
-
+                                  'playerPseudo=' + pseudo;
         alert("Card changed owner");
     });
 
@@ -1021,7 +1021,6 @@
         alert("The deck contains a card");
     });
 
-    });
 </script>
 
 <!-- Le styles -->
