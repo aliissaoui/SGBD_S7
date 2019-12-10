@@ -130,10 +130,6 @@
                     <form id="addCForm">
                         <h3>Ajouter une Carte</h3>
                         <div>
-                            <label for="CardID">ID*: </label>
-                            <input type="text" name="CardID" id="CardID" required>
-                        </div>
-                        <div>
                             <label for="CardTitle">Titre de la carte*:</label>
                             <input type="text" name="CardTitle" id="CardTitle" required> </label>
                         </div>
@@ -293,7 +289,7 @@
                 $("#CardType").html("<div style='text-align: center;'><form id='ID_FORMULAIRE'><h4>Veuillez entre le nom du type:<input type='text' id='type' name='type' size='10'> <a id='ty' class='button-class' >Ok</a> <h4></form></div>")
             } else {
                 var tab = "<?php if (isset($_GET['type'])) consltType($_GET['type']) ?>"
-                $("#CardType").html("<h4>Les cartes de type:" + type + "</h4>" + tab);
+                $("#CardType").html("<h4>Les cartes de type: " + type + "</h4>" + tab);
             }
             break;
         case "players":
@@ -365,14 +361,13 @@
         case ("addCard"):
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
-            var field = 'cardID';
+            var field = 'cardTitle';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
                 $("#welcome").html("<h3>Mise à Jour</h3>")
                 $('#AddCard').show();
             } else {
                 var add = "<?php if (
-                                isset($_GET['cardID']) &&
                                 isset($_GET['cardTitle']) &&
                                 isset($_GET['cardDescription']) &&
                                 isset($_GET['cardType']) &&
@@ -382,7 +377,6 @@
                                 isset($_GET['speed'])
                             ) {
                                 addCard(
-                                    $_GET['cardID'],
                                     $_GET['cardTitle'],
                                     $_GET['cardDescription'],
                                     $_GET['cardType'],
@@ -477,7 +471,6 @@
 
 
     $('#addCButton').click(function() {
-        var name = document.forms['addCForm'].elements['CardID'].value;
         var title = document.forms['addCForm'].elements['CardTitle'].value;
         var desc = document.forms['addCForm'].elements['CardDescription'].value;
         var type = document.forms['addCForm'].elements['CardType'].value;
@@ -485,8 +478,7 @@
         var att = document.forms['addCForm'].elements['Attack'].value;
         var def = document.forms['addCForm'].elements['Defence'].value;
         var spe = document.forms['addCForm'].elements['Speed'].value;
-        document.location.href = '?page=addCard&cardID=' + name +
-            '&cardTitle=' + title +
+        document.location.href = '?page=addCard&cardTitle=' + title +
             '&cardDescription=' + desc +
             '&cardType=' + type +
             '&cardFam=' + fam +
