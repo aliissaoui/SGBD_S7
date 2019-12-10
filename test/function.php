@@ -254,12 +254,28 @@ function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $date_non
     mysqli_query($link,$sql);
 }
 
+function deletePossesiondecks($n_deck, $pseudonyme)
+{
+    global $link;
+    $sql = " delete from Possessiondecks where n_deck='".$n_deck."' and pseudonyme='".$pseudonyme."' ";
+    mysqli_query($link,$sql);
+}
+
 function addPartiesjouees($n_partie, $pseudonyme, $n_deck, $nb_joueurs)
 {
     global $link;
     $sql = "insert into  Partiesjouees values('".$n_partie."','".$pseudonyme."','".$n_deck."','".$nb_joueurs."') ";
     mysqli_query($link,$sql);
 }
+
+function deletePartiesjouees($n_partie, $pseudonyme)
+{
+    global $link;
+    $sql = " delete from Partiesjouees where n_partie='".$n_partie."' and pseudonyme='".$pseudonyme."' ";
+    mysqli_query($link,$sql);
+}
+
+
 
 function players()
 {
