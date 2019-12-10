@@ -80,6 +80,12 @@
                         <li><a href="?page=choseDeck" id="pRare">Ajouter/Supprimer une main</a></li>
                         <!-- <li><a href="?page=addVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li> -->
                         <li><a href="?page=choseVersion" id="pRare">Ajouter/Supprimer une version de carte</a></li>
+                        <li><a href="?page=cardPlayer" id="addCardPlayer">Ajouter/Supprimer une carte à un joueur</a></li>
+                        <li><a href="?page=deckPlayer" id="addDeckPlayer">Ajouter/Supprimer une main à un joueur</a></li>
+                        <li><a href="?page=gamePlayer" id="addGamePlayer">Ajouter/Supprimer une partie jouées par un joueur</a></li>
+                        <li><a href="?page=gamePlayer" id="addCardDeck">Ajouter/Supprimer une carte à une main</a></li>
+
+
 
                     </ul>
                 </div>
@@ -331,6 +337,22 @@
                         </div>
                     </form>
                 </div>
+                <div id="AddCP" style="text-align: center;">
+                    <form id="addCPForm">
+                        <h3>Ajouter une carte à un joueur</h3>
+                        <div>
+                            <label for="CardTitle">Titre de la carte*: </label>
+                            <input type="text" name="CardTitle" id="CardTitle" required>
+                        </div>
+                        <div>
+                            <label for="PlayerPseudo">Pseudo*: </label>
+                            <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
+                        </div>
+                        <div>
+                            <a id='addCPButton' class='button-class'>Ajouter</a>
+                        </div>
+                    </form>
+                </div>
 
                 <hr>
 
@@ -356,7 +378,7 @@
                               "#AddVersion", "#AddDeck", "#MenuCard",
                               "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
                               "#DeleteDeck","#DeleteCard","#DeleteVersion","#DeleteGame",
-                              "#DeletePlayer");
+                              "#DeletePlayer","AddCP");
         funcs.forEach(elem => {
             if (elem != keep) {
                 $(elem).hide();
@@ -577,7 +599,24 @@
 
             }
             break;
-
+        case ("addCardPlayer"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'playerPseudo';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#AddCP').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['cardTitle']) &&
+                                isset($_GET['playerPseudo'])
+                            ) {
+                                addAppartenance($_GET['cardTitle'], $_GET['playerPseudo']);
+                            }
+                            ?>";
+            }
+        
     }
 
     $("#ty").click(function() {
@@ -657,6 +696,15 @@
             '&speed=' + spe;
 
         alert("Card added");
+    });
+
+    $('#addCPButton').click(function() {
+        var title = document.forms['addCPForm'].elements['CardTitle'].value;
+        var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addCardPlayer&cardTitle=' + title +
+            'playerPseudo=' + pseudo;
+
+        alert("Card changed owner");
     });
 
     $('#addGButton').click(function() {
