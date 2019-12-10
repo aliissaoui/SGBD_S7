@@ -336,6 +336,22 @@
                         </div>
                     </form>
                 </div>
+                <div id="AddGP" style="text-align: center;">
+                    <form id="addGPForm">
+                        <h3>Ajouter une partie à un joueur</h3>
+                        <div>
+                            <label for="GameName">Nom de la partie*: </label>
+                            <input type="text" name="CardTitle" id="CardTitle" required>
+                        </div>
+                        <div>
+                            <label for="PlayerPseudo">Pseudo*: </label>
+                            <input type="text" name="PlayerPseudo" id="PlayerPseudo" required>
+                        </div>
+                        <div>
+                            <a id='addGPButton' class='button-class'>Ajouter</a>
+                        </div>
+                    </form>
+                </div>
 
                         <div>
                 <div id="DeleteVersion" style="text-align: center;">
@@ -678,6 +694,24 @@
                             ?>";
             }
             break;
+            case ("addGamePlayer"):
+            $("#welcome").html("<h3>Mise à jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'gameName';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#welcome").html("<h3>Mise à Jour</h3>")
+                $('#AddCP').show();
+            } else {
+                var add = "<?php if (
+                                isset($_GET['gameName']) &&
+                                isset($_GET['playerPseudo'])
+                            ) {
+                                addPartiesjouees($_GET['gameName'], $_GET['playerPseudo'], 1, 2);
+                            }
+                            ?>";
+            }
+            break;
         
     }
 
@@ -850,6 +884,15 @@
             'playerPseudo=' + pseudo;
 
         alert("Card changed owner");
+    });
+
+    $('#addGPButton').click(function() {
+        var name = document.forms['addGPForm'].elements['GameName'].value;
+        var pseudo = document.forms['addGPForm'].elements['PlayerPseudo'].value;
+        document.location.href = '?page=addGamePlayer&gameName=' + name +
+            'playerPseudo=' + pseudo;
+
+        alert("The player successfully played a game");
     });
 
     });
