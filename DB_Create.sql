@@ -86,15 +86,14 @@ nb_joueurs TINYINT
 );
 
 -- Insertion des carte pour exemple
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('akali', 'green', 'slayer', 'badenjan', 90, 40, 85);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('teemo', 'orange', 'specialist', 'batata', 80, 30, 90);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('yasuo', 'black', 'slayer', 'maticha', 90, 60, 70);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('fizz', 'blue', 'slayer', 'khizo', 85, 20, 85);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('olaf', 'red', 'fighter', 'gar3a', 74, 70, 60);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('jinx', 'rose', 'marksman', 'loubia', 96, 98, 95);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('jinn', 'roubya', 'marksman', 'loubia', 30, 25, 97);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('nn', 'november', 'gold', 'digger', 15, 25, 95);
-insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('syndra', 'violet', 'mage', 'jelbana', 80, 36, 73);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('akali', 'green', 'slayer', 'pirates', 90, 40, 85);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('teemo', 'orange', 'specialist', 'pirates', 80, 30, 90);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('yasuo', 'black', 'slayer', 'polices', 90, 60, 70);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('fizz', 'blue', 'slayer', 'marines', 30, 20, 85);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('olaf', 'red', 'fighter', 'corsaires', 74, 70, 60);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('jinx', 'rose', 'marksman', 'rois', 96, 98, 95);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('jinn', 'roubya', 'marksman', 'voleurs', 30, 25, 97);
+insert into Cartes (titre,description,type,famille,attaque,defense,rapidite) values('syndra', 'violet', 'mage', 'rois', 80, 36, 73);
 
 insert into Decks (nom) values('Majmou3ato lmawt');
 insert into Decks (nom) values('Majmou3ato L7ayat');
@@ -183,16 +182,16 @@ insert into Partiesjouees values(3, 'BigShaq1208', 1, 2);
 
 -- -------------- Le premier possesseur d'une carte
 
--- create view derniere_possession as 
--- select id_carte, date_derniere_possession from Cartes natural join (
--- select id_carte, min(date_possession) as date_derniere_possession
+-- create view premiere_possession as 
+-- select id_carte, date_premiere_possession from Cartes natural join (
+-- select id_carte, min(date_possession) as date_premiere_possession
 --     from Possessioncartes
 --     group by id_carte) as P;
 --     
 -- select pseudonyme
 -- from (
--- select * from derniere_possession natural join Possessioncartes
--- where date_possession = date_derniere_possession) as P
+-- select * from premiere_possession natural join Possessioncartes
+-- where date_possession = date_premiere_possession) as P
 -- natural join Cartes C
 -- where C.titre = 'yasuo'; -- Nom de carte à ajouter
 
