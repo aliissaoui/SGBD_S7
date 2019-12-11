@@ -20,10 +20,10 @@ nom VARCHAR(40) NOT NULL
 
 CREATE TABLE IF NOT EXISTS Appartenance (
 id_carte SMALLINT UNSIGNED,
-CONSTRAINT fk_inv_id_carte_appartenance FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE,
+CONSTRAINT fk_inv_id_carte_appartenance FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) on delete cascade on update cascade,
 n_deck SMALLINT UNSIGNED,
 PRIMARY KEY (n_deck, id_carte),
-CONSTRAINT fk_inv_id_deck_appartenance FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) ON DELETE CASCADE,
+CONSTRAINT fk_inv_id_deck_appartenance FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) on delete cascade on update cascade,
 date_ajout DATETIME
 );
 
@@ -36,7 +36,7 @@ date_impression DATETIME NOT NULL,
 rendu SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
 tirage SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
 cote SMALLINT UNSIGNED NOT NULL,
-CONSTRAINT fk_inv_carte_id_version FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE
+CONSTRAINT fk_inv_carte_id_version FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) on delete cascade on update cascade
 );
 
 CREATE TABLE IF NOT EXISTS Joueurs (
@@ -48,9 +48,9 @@ prenom VARCHAR(40) NOT NULL
 CREATE TABLE IF NOT EXISTS Possessioncartes (
 id_carte SMALLINT UNSIGNED,
 PRIMARY KEY (id_carte, pseudonyme),
-CONSTRAINT fk_inv_carte_id_possession FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE,
+CONSTRAINT fk_inv_carte_id_possession FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) on delete cascade on update cascade,
 pseudonyme VARCHAR(40),
-CONSTRAINT fk_inv_carte_pseudo_possession FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) ON DELETE CASCADE,
+CONSTRAINT fk_inv_carte_pseudo_possession FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) on delete cascade on update cascade,
 date_possession DATETIME NOT NULL,
 methode_possession VARCHAR(20),
 date_non_possession DATETIME,
@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS Possessiondecks (
 n_deck SMALLINT UNSIGNED,
 pseudonyme VARCHAR(40),
 PRIMARY KEY (n_deck, pseudonyme),
-CONSTRAINT fk_inv_deck FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) ON DELETE CASCADE,
-CONSTRAINT fk_inv_pseudo FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) ON DELETE CASCADE,
+CONSTRAINT fk_inv_deck FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) on delete cascade on update cascade,
+CONSTRAINT fk_inv_pseudo FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) on delete cascade on update cascade,
 date_possession DATETIME
 );
 
@@ -79,9 +79,9 @@ n_partie SMALLINT UNSIGNED,
 pseudonyme VARCHAR(40),
 n_deck SMALLINT UNSIGNED,
 PRIMARY KEY (n_partie, pseudonyme),
-CONSTRAINT fk_inv_partie FOREIGN KEY (n_partie) REFERENCES Parties(n_partie) ON DELETE CASCADE,
-CONSTRAINT fk_inv_pseudo_partie FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) ON DELETE CASCADE,
-CONSTRAINT fk_inv_deck_partie FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) ON DELETE CASCADE,
+CONSTRAINT fk_inv_partie FOREIGN KEY (n_partie) REFERENCES Parties(n_partie) on delete cascade on update cascade,
+CONSTRAINT fk_inv_pseudo_partie FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) on delete cascade on update cascade,
+CONSTRAINT fk_inv_deck_partie FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) on delete cascade on update cascade,
 nb_joueurs TINYINT
 );
 
@@ -142,23 +142,23 @@ insert into Partiesjouees values(3, 'BigShaq1208', 1, 2);
 
 -- Trigger
 
-DELIMITER @@;
+delimiter //
 
-create trigger posseder after insert on Possessioncartes
+create trigger posseder before insert on Possessioncartes
 for each row begin
-if id_carte = new.id_carte then
-update Possessioncartes
-set date_non_possession = new.date_possession;
+if @id_carte = new.id_carte then
+set @date_non_possession = new.date_possession;
 end if;
-end$$
-
-DELIMITER ; 
-
-
+end;//
 
 insert into Possessioncartes values(7,'BigShaq1208','2959-10-10',NULL,NULL,1);
 
+
+
+
 select * from Possessioncartes;
+
+
 
 
 -- --------------- Le nombre de versions par carte 
