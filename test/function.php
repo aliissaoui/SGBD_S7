@@ -282,7 +282,7 @@ function deleteVersion($n_version)  //DONE
 function addAppartenance($id_carte, $n_deck, $date_ajout)
 {
     global $link;
-    $sql = "insert into  Appartenance values('".$id_carte."','".$n_deck."','".$date_ajout."') ";
+    $sql = "insert into Appartenance values('".$id_carte."','".$n_deck."','".$date_ajout."') ";
     echo "<div id='req' class='hero-unit'>";
     echo $sql;
     echo "</div>";
@@ -320,7 +320,7 @@ function deletePossesiondecks($n_deck, $pseudonyme)
     mysqli_query($link,$sql);
 }
 
-function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $date_non_possession, $etat)
+function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $etat)
 {
     global $link;
     $sql = "insert into  Possessioncartes values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
@@ -330,10 +330,10 @@ function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $date_non
     mysqli_query($link,$sql);
 }
 
-function deletePossesioncartes($n_deck, $pseudonyme)
+function deletePossesioncartes($id_carte, $pseudonyme)
 {
     global $link;
-    $sql = " delete from Possessiondecks where n_deck='".$n_deck."' and pseudonyme='".$pseudonyme."' ";
+    $sql = " delete from Possessioncartes where id_carte='".$id_carte."' and pseudonyme='".$pseudonyme."' ";
     echo "<div id='req' class='hero-unit'>";
     echo $sql;
     echo "</div>";
