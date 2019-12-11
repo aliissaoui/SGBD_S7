@@ -31,10 +31,10 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 </a>
-                <a class="brand" href="#">Projet SGBD : Carte à collectionner</a>
+                <a class="brand" href="?page=accueil">Projet SGBD : Carte à collectionner</a>
                 <div>
                     <ul class="nav">
-                        <li><a href="#">Acceuil</a></li>
+                        <li><a href="?page=accueil">Acceuil</a></li>
                         <li><a id="consultation" href="?page=consultations">Consultation</a></li>
                         <li><a id="statistic" href="?page=statistics">Statistiques</a></li>
                         <li><a id="update" href="?page=updates">Mise à jour</a></li>
@@ -107,7 +107,7 @@
             </div>
             <!--/span-->
             <div class="span9">
-                <div class="hero-unit">
+                <div class="hero-unit" id="accueil">
                     <h1>Cartes à collectionner !</h1>
                     <p>Gestion des cartes à jouer au sein de la
                         communauté de joueurs/collectionneurs</p>
@@ -133,7 +133,6 @@
                 <div id="CardType"></div>
                 <div id="CardNoDeck"></div>
                 <div id="PlayerNoGame"></div>
-                <hr>
 
                 <div id="PCards"></div>
                 <div id="PValues"></div>
@@ -429,7 +428,6 @@
                     </form>
                 </div>
 
-                <hr>
 
             </div>
 
@@ -476,6 +474,7 @@
             $("#updates").show();
             break;
         case "cardType":
+            $("#consultations").show();
             $("#welcome").html("<h3>Consultation</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
             var field = 'type';
@@ -1152,14 +1151,25 @@
             padding-right: 5px;
         }
     }
+    #accueil {
+        margin-right: 34%;
+    }
+    #req {
+        padding: 5px;
+        width: 50%;
 
+    }
+    #req:h5 {
+        color: #fff;
+    }
     h4 {
         color: #4b4b4b;
     }
 
     h5 {
-        color: #a5a5a5;
+        color: black;
     }
+
     footer {
 
         background-color: grey;

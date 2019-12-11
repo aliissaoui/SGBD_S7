@@ -39,6 +39,10 @@ function pWithoutGame()
             left outer join Partiesjouees P
             on J.pseudonyme = P.pseudonyme
             where P.n_partie is NULL;");
+
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo "select distinct J.* <br> from Joueurs J <br> left outer join Partiesjouees P <br> on J.pseudonyme = P.pseudonyme <br> where P.n_partie is NULL;";
+    echo "</h5></div>";
     echo display_data($showtables);
 }
 
@@ -52,6 +56,9 @@ function cardnDeck()
             on C.id_carte = A.id_carte
             where A.n_deck is NULL;
             ");
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo " select distinct C.* <br> from Cartes C <br> left outer join Appartenance A <br> on C.id_carte = A.id_carte <br> where A.n_deck is NULL;";
+    echo "</h5></div>";
     echo display_data($showtables);
 }
 
@@ -63,6 +70,9 @@ function playersCards()
             from Possessioncartes
             group by pseudonyme;
             ");
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo  "select distinct pseudonyme, count(id_carte) as Nombre_de_cartes <br> from Possessioncartes <br> group by pseudonyme;";
+    echo "</h5></div>";
     echo display_data($showtables);
 }
 
@@ -81,6 +91,9 @@ function playersValues()
                 group by J.pseudonyme
                 order by valeur desc;
             ");
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo " select J.pseudonyme, sum(V.cote * P.etat) as valeur <br> from Versions V <br> inner join Cartes C on C.id_carte = V.id_carte <br> inner join Possessioncartes P on P.id_carte = C.id_carte <br> inner join Joueurs J on J.pseudonyme = P.pseudonyme  <br> group by J.pseudonyme  <br> order by valeur desc;";
+    echo "</h5></div>";
     echo display_data($showtables);
 }
 
@@ -94,6 +107,9 @@ function cardsPlayers()
             on C.id_carte = P.id_carte
             group by P.id_carte;
         ");
+    // echo "<div id='req' class='hero-unit'><h5>";
+    // echo $sql;
+    // echo "</h5></div>";
     echo display_data($showtables);
 }
 
@@ -115,7 +131,10 @@ function playersRare()
                     V.tirage < 100
                 group by J.pseudonyme;
             ");
-    echo display_data($showtables);
+            // echo "<div id='req' class='hero-unit'><h5>";
+            // echo $sql;
+            // echo "</h5></div>";
+            echo display_data($showtables);
 }
 
 function cardsFamilies()
@@ -137,6 +156,9 @@ function cardsFamilies()
                 group by famille
             ) as T;
         ");
+    // echo "<div id='req' class='hero-unit'><h5>";
+    // echo $sql;
+    // echo "</h5></div>";
     echo display_data($showtables);
 }
 
@@ -144,6 +166,9 @@ function consltType($t){
     global $link;
     $sql = 'select * from Cartes where type = "' . $t . '"';
     $showtables= mysqli_query($link,$sql);
+    // echo "<div id='req' class='hero-unit'><h5>";
+    // echo $sql;
+    // echo "</h5></div>";
     echo display_data($showtables);
 
 }
@@ -152,6 +177,9 @@ function addPlayer($name, $firstName, $pseudo)
 {
     global $link;
     $sql = " insert into Joueurs values('".$name."','".$firstName."','".$pseudo."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -160,6 +188,9 @@ function deletePlayer($pseudo)
 {
     global $link;
     $sql = " delete from Joueurs where pseudonyme='".$pseudo."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -168,6 +199,9 @@ function addCard($titre, $description, $type, $famille, $attaque, $defense, $rap
     
     global $link;
     $sql = " insert into Cartes (titre, description, type, famille, attaque, defense, rapidite) values('".$titre."','".$description."','".$type."','".$famille."','".$attaque."','".$defense."','".$rapidite."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -175,6 +209,9 @@ function deleteCard($id_carte)
 {
     global $link;
     $sql = " delete from Cartes where id_carte='".$id_carte."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -182,6 +219,9 @@ function addParty($date, $lieu, $type, $resultat)
 {
     global $link;
     $sql = " insert into Parties (date, lieu, type, resultat) values('".$date."','".$lieu."','".$type."','".$resultat."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -189,6 +229,9 @@ function deleteParty($n_partie)
 {
     global $link;
     $sql = " delete from Parties where n_partie='".$n_partie."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -196,6 +239,9 @@ function addDeck($nom)
 {
     global $link;
     $sql = " insert into Decks (nom) values('".$nom."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -203,6 +249,9 @@ function deleteDeck($n_deck)
 {
     global $link;
     $sql = " delete from Decks where n_deck='".$n_deck."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -210,6 +259,9 @@ function addVersion($card, $date_impression, $rendu, $tirage, $cote)
 {
     global $link;
     $sql = " insert into Versions (id_carte ,date_impression, rendu, tirage, cote) values('".$card."','".$date_impression."','".$rendu."','".$tirage."','".$cote."' ) ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -217,20 +269,31 @@ function deleteVersion($n_version)
 {
     global $link;
     $sql = " delete from Versions where n_version='".$n_version."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
+    
 }
 
 function addAppartenance($id_carte, $n_deck, $date_ajout)
 {
     global $link;
     $sql = "insert into  Appartenance values('".$id_carte."','".$n_deck."','".$date_ajout."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
+
 }
 
 function deleteAppartenance($id_carte, $n_deck)
 {
     global $link;
     $sql = " delete from Appartenance where id_carte='".$id_carte."' and n_deck='".$n_deck."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -238,6 +301,9 @@ function addPossesiondecks($n_deck, $pseudonyme, $date_possession)
 {
     global $link;
     $sql = "insert into  Possessiondecks values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -245,6 +311,9 @@ function deletePossesiondecks($n_deck, $pseudonyme)
 {
     global $link;
     $sql = " delete from Possessiondecks where n_deck='".$n_deck."' and pseudonyme='".$pseudonyme."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -252,6 +321,9 @@ function addPossessioncartes($id_carte, $pseudonyme, $date_possession, $date_non
 {
     global $link;
     $sql = "insert into  Possessioncartes values('".$n_deck."','".$pseudonyme."','".$date_possession."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -259,6 +331,9 @@ function deletePossesioncartes($n_deck, $pseudonyme)
 {
     global $link;
     $sql = " delete from Possessiondecks where n_deck='".$n_deck."' and pseudonyme='".$pseudonyme."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -266,6 +341,9 @@ function addPartiesjouees($n_partie, $pseudonyme, $n_deck, $nb_joueurs)
 {
     global $link;
     $sql = "insert into  Partiesjouees values('".$n_partie."','".$pseudonyme."','".$n_deck."','".$nb_joueurs."') ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -273,6 +351,9 @@ function deletePartiesjouees($n_partie, $pseudonyme)
 {
     global $link;
     $sql = " delete from Partiesjouees where n_partie='".$n_partie."' and pseudonyme='".$pseudonyme."' ";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     mysqli_query($link,$sql);
 }
 
@@ -285,6 +366,9 @@ function numberVersionsCards()
             group by id_carte, titre, date_impression
             order by nombre desc";
     echo display_data(mysqli_query($link,$sql));
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
 }
 
 function versionsAfterDate($date_impression)
@@ -294,6 +378,9 @@ function versionsAfterDate($date_impression)
             from Versions
             where date_impression > '".$date_impression."' ";
     echo display_data(mysqli_query($link,$sql));
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
 }
 
 function numberPossessionsCard()
@@ -304,6 +391,9 @@ function numberPossessionsCard()
             natural join Possessioncartes P
             group by C.id_carte";
     echo display_data(mysqli_query($link,$sql));
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
 }
 
 function lastPossession($cardID)
@@ -322,6 +412,9 @@ function lastPossession($cardID)
             natural join Cartes C
             where C.id_carte = '".$cardID."'";
     echo display_data(mysqli_query($link,$sql));
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
 
 }
 
@@ -341,6 +434,9 @@ function firstPossession($cardID)
             natural join Cartes C
             where C.id_carte = '".$cardID."'";
     echo display_data(mysqli_query($link,$sql));
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
 
 }
 
@@ -351,6 +447,9 @@ function cardsPlayer($player)
             from (Cartes C natural join Possessioncartes P)
             natural join Joueurs J
             where J.pseudonyme = '".$player."' ";
+            echo "<div id='req' class='hero-unit'><h5>";
+            echo $sql;
+            echo "</h5></div>";
 }
 
 function winRate($player)
@@ -360,6 +459,9 @@ function winRate($player)
             from Parties
             natural join Partiesjouees
             where pseudonyme = '".$player."' ";
+            echo "<div id='req' class='hero-unit'><h5>";
+            echo $sql;
+            echo "</h5></div>";
 }
 
 
@@ -368,7 +470,11 @@ function players()
 {
     global $link;
     $sql = "select * from Joueurs";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
+
 
 }
 
@@ -376,6 +482,9 @@ function cartes()
 {
     global $link;
     $sql = "select distinct * from Cartes";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 
@@ -383,6 +492,9 @@ function decks()
 {
     global $link;
     $sql = "select distinct * from Decks";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 
@@ -390,6 +502,9 @@ function parties()
 {
     global $link;
     $sql = "select distinct * from Parties";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 
@@ -397,6 +512,9 @@ function versions()
 {
     global $link;
     $sql = "select distinct * from Versions";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 ////// Relations
@@ -404,6 +522,9 @@ function playerPosCard()
 {
     global $link;
     $sql = "select distinct * from Possessioncartes";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 
@@ -411,6 +532,9 @@ function playerPosDeck()
 {
     global $link;
     $sql = "select distinct * from Possessiondecks";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 
@@ -418,6 +542,9 @@ function deckPosCard()
 {
     global $link;
     $sql = "select distinct * from Appartenance";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 
@@ -425,6 +552,9 @@ function playerGame()
 {
     global $link;
     $sql = "select distinct * from Partiesjouees";
+    echo "<div id='req' class='hero-unit'><h5>";
+    echo $sql;
+    echo "</h5></div>";
     echo display_data(mysqli_query($link,$sql));
 }
 ?>
