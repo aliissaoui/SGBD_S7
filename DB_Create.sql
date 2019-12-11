@@ -23,7 +23,7 @@ id_carte SMALLINT UNSIGNED,
 CONSTRAINT fk_inv_id_carte_appartenance FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE,
 n_deck SMALLINT UNSIGNED,
 PRIMARY KEY (n_deck, id_carte),
-FOREIGN KEY (n_deck) REFERENCES Decks(n_deck),
+CONSTRAINT fk_inv_id_deck_appartenance FOREIGN KEY (n_deck) REFERENCES Decks(n_deck) ON DELETE CASCADE,
 date_ajout DATETIME
 );
 
@@ -50,7 +50,7 @@ id_carte SMALLINT UNSIGNED,
 PRIMARY KEY (id_carte, pseudonyme),
 CONSTRAINT fk_inv_carte_id_possession FOREIGN KEY (id_carte) REFERENCES Cartes(id_carte) ON DELETE CASCADE,
 pseudonyme VARCHAR(40),
-FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme),
+CONSTRAINT fk_inv_carte_pseudo_possession FOREIGN KEY (pseudonyme) REFERENCES Joueurs(pseudonyme) ON DELETE CASCADE,
 date_possession DATETIME NOT NULL,
 methode_possession VARCHAR(20),
 date_non_possession DATETIME,
@@ -137,11 +137,29 @@ insert into Parties (date, lieu, type, resultat) values('1990-10-10', 'Bordeaux'
 insert into Parties (date, lieu, type, resultat) values('1991-10-10', 'Bordeaux', 'Fun', 1);
 insert into Parties (date, lieu, type, resultat) values('1992-10-10', 'Bordeaux', 'Fun', 0);
 
-
 insert into Partiesjouees values(1, 'BigShaq1208', 1, 2);
 insert into Partiesjouees values(2, 'BigShaq1208', 1, 2);
 insert into Partiesjouees values(3, 'BigShaq1208', 1, 2);
 
+-- Trigger
+
+DELIMITER @@;
+
+create trigger posseder after insert on Possessioncartes
+for each row begin
+if id_carte = new.id_carte then
+update Possessioncartes
+set date_non_possession = new.date_possession;
+end if;
+end$$
+
+DELIMITER ; 
+
+
+
+insert into Possessioncartes values(7,'BigShaq1208','2959-10-10',NULL,NULL,1);
+
+select * from Possessioncartes;
 
 
 -- --------------- Le nombre de versions par carte 
