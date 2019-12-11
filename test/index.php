@@ -1039,57 +1039,92 @@
             $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
-            var field = 'playerPseudo';
+            var field = 'mode';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
                 $("#welcome").html("<h3>Mise à Jour</h3>")
                 $("#AddCP").show();
             } else {
-                var add = "<?php if (
+                if ( url.indexOf('mode=deleteCardPlayer') == -1){
+                    var add = "<?php if (
                                 isset($_GET['cardTitle']) &&
                                 isset($_GET['playerPseudo'])
                             ) {
-                                addAppartenance($_GET['cardTitle'], $_GET['playerPseudo']);
+                                addPossessioncartes($_GET['cardTitle'], $_GET['playerPseudo']);//TO CHANGE
                             }
                             ?>";
+                }
+                else {
+                    var add = "<?php if (
+                                isset($_GET['cardID']) &&
+                                isset($_GET['playerPseudo'])
+                            ) {
+                                deletePossesioncartes($_GET['cardID'], $_GET['playerPseudo']); //GOOD
+                            }
+                            ?>";
+                }
             }
             break;
         case ("gamePlayer"):
+            console.log("in game player")
             $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
-            var field = 'gameName';
+            var field = 'mode';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
+                console.log("in if");
                 $("#welcome").html("<h3>Mise à Jour</h3>")
-                $('#AddGP').show();
+            $("#AddGP").show();
             } else {
-                var add = "<?php if (
-                                isset($_GET['gameName']) &&
+                if(url.indexOf('mode=addGamePlayer') == -1){
+                    var add = "<?php if (
+                                isset($_GET['cardTitle']) &&
                                 isset($_GET['playerPseudo'])
                             ) {
-                                addPartiesjouees($_GET['gameName'], $_GET['playerPseudo'], 1, 2);//TO CHANGE
+                                addPartiesjouees($_GET['cardTitle'], $_GET['playerPseudo']);//TO CHANGE
                             }
                             ?>";
+                }
+                else {
+                    var add = "<?php if (
+                                isset($_GET['gameN']) &&
+                                isset($_GET['playerPseudo'])
+                            ) {
+                                deletePartiesjouees($_GET['gameN'], $_GET['playerPseudo']);//GOOD
+                            }
+                            ?>";
+                }
             }
             break;
         case ("deckPlayer"):
             $("#updates").show();
             $("#welcome").html("<h3>Mise à jour</h3>")
             var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
-            var field = 'deckName';
+            var field = 'mode';
             var url = window.location.href;
             if (url.indexOf('&' + field + '=') == -1) {
                 $("#welcome").html("<h3>Mise à Jour</h3>")
                 $('#AddDP').show();
             } else {
-                var add = "<?php if (
+                if(url.indexOf('mode=deleteDeckPlayer') == -1){
+                    var add = "<?php if (
                                 isset($_GET['deckName']) &&
                                 isset($_GET['playerPseudo'])
                             ) {
-                                addPartiesjouees($_GET['deckName'], $_GET['playerPseudo'], 1, 2);//TO CHANGE
+                                addPossesiondecks($_GET['deckName'], $_GET['playerPseudo'], 1, 2);//TO CHANGE
                             }
                             ?>";
+                }
+                else {
+                    var add = "<?php if (
+                                isset($_GET['deckName']) &&
+                                isset($_GET['playerPseudo'])
+                            ) {
+                                deletePossesiondecks($_GET['deckName'], $_GET['playerPseudo']); //GOOD
+                            }
+                            ?>";
+                }
             }
             break;
         case ("cardDeck"):
@@ -1329,16 +1364,16 @@
         console.log("HHHHH");
         var ID = document.forms['addCPForm'].elements['CardID'].value;
         var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addCardPlayer&cardID=' + ID 
-                                  'playerPseudo=' + pseudo;
+        document.location.href = '?page=cardPlayer&mode=addCardPlayer&cardID=' + ID +
+                                  '&playerPseudo=' + pseudo;
         alert("Card changed owner");
     });
 
     $('#addGPButton').click(function() {
         var number = document.forms['addGPForm'].elements['GameNumber'].value;
         var pseudo = document.forms['addGPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addGamePlayer&gameNumber=' + number +
-            'playerPseudo=' + pseudo;
+        document.location.href = '?page=gamePlayer&mode=addGamePlayer&gameN=' + number +
+                                 '&playerPseudo=' + pseudo;
 
         alert("The player successfully played a game");
     });
@@ -1346,8 +1381,8 @@
     $('#addDPButton').click(function() {
         var name = document.forms['addDPForm'].elements['DeckName'].value;
         var pseudo = document.forms['addDPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addDeckPlayer&deckName=' + name +
-            'playerPseudo=' + pseudo;
+        document.location.href = '?page=deckPlayer&mode=addDeckPlayer&deckName=' + name +
+                                '&playerPseudo=' + pseudo;
 
         alert("The player owns a deck");
     });
@@ -1355,8 +1390,8 @@
     $('#addDCButton').click(function() {
         var name = document.forms['addDCForm'].elements['DeckName'].value;
         var ID = document.forms['addDCForm'].elements['CardID'].value;
-        document.location.href = '?page=addDeckCard&deckName=' + name +
-            'cardID=' + ID;
+        document.location.href = '?page=cardDeck&mode=addDeckCard&deckName=' + name +
+                                '&cardID=' + ID;
 
         alert("The deck contains a card");
     });
@@ -1364,17 +1399,18 @@
     $('#deleteCPButton').click(function() {
         var ID = document.forms['addCPForm'].elements['CardID'].value;
         var pseudo = document.forms['addCPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addCardPlayer&cardID=' + ID 
-            'playerPseudo=' + pseudo;
+        document.location.href = '?page=cardPlayer&mode=deleteCardPlayer&cardID=' + ID +
+            '&playerPseudo=' + pseudo;
 
         alert("Card changed owner");
     });
 
     $('#deleteGPButton').click(function() {
+        console.log("lll")
         var number = document.forms['addGPForm'].elements['GameNumber'].value;
         var pseudo = document.forms['addGPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addGamePlayer&gameNumber=' + number +
-            'playerPseudo=' + pseudo;
+        document.location.href = '?page=gamePlayer&mode=deleteGamePlayer&gameN=' + number +
+            '&playerPseudo=' + pseudo;
 
         alert("The player successfully played a game");
     });
@@ -1382,8 +1418,8 @@
     $('#deleteDPButton').click(function() {
         var name = document.forms['addDPForm'].elements['DeckName'].value;
         var pseudo = document.forms['addDPForm'].elements['PlayerPseudo'].value;
-        document.location.href = '?page=addDeckPlayer&deckName=' + name +
-            'playerPseudo=' + pseudo;
+        document.location.href = '?page=deckPlayer&mode=deleteDeckPlayer&deckName=' + name +
+            '&playerPseudo=' + pseudo;
 
         alert("The player owns a deck");
     });
@@ -1391,8 +1427,8 @@
     $('#deleteDCButton').click(function() {
         var name = document.forms['addDCForm'].elements['DeckName'].value;
         var ID = document.forms['addDCForm'].elements['CardID'].value;
-        document.location.href = '?page=addDeckCard&deckName=' + name +
-            'cardID=' + ID;
+        document.location.href = '?page=cardDeck&mode=deleteDeckCard&deckName=' + name +
+            '&cardID=' + ID;
 
         alert("The deck contains a card");
     });
