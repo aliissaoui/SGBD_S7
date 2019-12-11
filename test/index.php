@@ -75,11 +75,21 @@
                         <li class="nav-header">
                             <h4>Statistiques</h4>
                         </li>
+                        <h5>Obligatoires</h5>
                         <li><a href="?page=pCards" id="pCards">Joueurs avec nombre de cartes qu'ils possèdent</a></li>
                         <li><a href="?page=pValues" id="pValues">Joueurs classé par valeur de collection</a></li>
                         <li><a href="?page=cPlayers" id="cPlayers">Cartes avec nombre des joueurs qui l'utilisent</a></li>
                         <li><a href="?page=pRare" id="pRare">Joueurs possédant le plus de cartes rares</a></li>
                         <li><a href="?page=cardsFamily" id="cardsFamily">Famille de carte</a></li>
+                        <h5>Bonus</h5>
+                        <li><a href="?page=nVCard" id="nVCard">Le nombre de versions par carte </a></li>
+                        <li><a href="?page=nPosCard" id="nPosCard">Le nombre de fois qu'une carte a été possédée</a></li>
+                        <li><a href="?page=vCDate" id="vCDate">Les versions créées après une date</a></li>
+                        <li><a href="?page=lastPosCard" id="lastPosCard">Le dernier possesseur d'une carte</a></li>
+                        <li><a href="?page=firstPosCard" id="firstPosCard">Le premier possesseur d'une carte</a></li>
+                        <li><a href="?page=playerCards" id="playerCards">Les cartes d'un joueur</a></li>
+                        <li><a href="?page=cardPlayers" id="cardPlayers">Les joueurs qui possedent une carte</a></li>
+                        <li><a href="?page=wonGames" id="wonGames">Le nombre de parties gagnées par un joueur</a></li>
 
                     </ul>
                 </div>
@@ -124,6 +134,8 @@
                     <h4>
                     </form> 
                 </div>
+
+                <!-------————————------------------———— Consult ----------——————————--------——————————--———-->
                 <div id="CardTypeResult"></div>
                 <div id="Players"></div>
                 <div id="Cards"></div>
@@ -134,11 +146,95 @@
                 <div id="CardNoDeck"></div>
                 <div id="PlayerNoGame"></div>
 
+                <!-------————————------------------———— Stats ----------——————————--------——————————--———-->
                 <div id="PCards"></div>
                 <div id="PValues"></div>
                 <div id="CPlayers"></div>
                 <div id="PRare"></div>
                 <div id="CardsFamily"></div>
+                <!-- bonus -->
+                <div id="NVCard"></div>
+                <div id="NPosCard"></div>
+                <div id="VCDate" style="text-align: center;">
+                    <form id="VCDateF">
+                        <h3>Les versions crées après une date</h3>
+                        <div>
+                            <label for="vDate">La date*: </label>
+                            <input type="date" name="vDate" id="vDate" required>
+                        </div>
+                        <div>
+                            <button id='VCDateB' class='btn btn-primary' type="button">Montrer</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="LastPosCard" style="text-align: center;">
+                <form id="LastPosCardF">
+                        <h3>Le dernier possesseur d'une carte</h3>
+                        <div>
+                            <label for="cardID">Id de la carte*: </label>
+                            <input type="text" name="cardID" id="cardID" required>
+                        </div>
+                        <div>
+                            <button id='LastPosCardB' class='btn btn-primary' type="button">Montrer</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="FirstPosCard" style="text-align: center;">
+                <form id="FirstPosCardF">
+                        <h3>Le premier possesseur d'une cartee</h3>
+                        <div>
+                            <label for="cardID">Id de la carte: </label>
+                            <input type="text" name="cardID" id="cardID" required>
+                        </div>
+                        <div>
+                            <button id='FirstPosCardB' class='btn btn-primary' type="button">Montrer</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="PlayerCards" style="text-align: center;">
+                <form id="PlayerCardsF">
+                        <h3>Les cartes d'un joueurs</h3>
+                        <div>
+                            <label for="pseudo">Le pseudo du Joueur*: </label>
+                            <input type="text" name="pseudo" id="pseudo" required>
+                        </div>
+                        <div>
+                            <button id='PlayerCardsB' class='btn btn-primary' type="button">Montrer</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="CardPlayers" style="text-align: center;">
+                <form id="CardPlayersF">
+                        <h3>Les joueurs qui possèdent une carte</h3>
+                        <div>
+                            <label for="cardID">Id de la carte*: </label>
+                            <input type="text" name="cardID" id="cardID" required>
+                        </div>
+                        <div>
+                            <button id='CardPlayersB' class='btn btn-primary' type="button">Montrer</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="WonGames" style="text-align: center;">
+                <form id="WonGamesF">
+                        <h3>Le nombre de parties gagnés par un joueur</h3>
+                        <div>
+                            <label for="pseudo">Le pseudo du joueur*: </label>
+                            <input type="text" name="pseudo" id="pseudo" required>
+                        </div>
+                        <div>
+                            <button id='WonGamesB' class='btn btn-primary' type="button">Montrer</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="VCDateResult"></div>
+                <div id="LastPosCardResult"></div>
+                <div id="FirstPosCardResult"></div>
+                <div id="PlayerCardsResult"></div>
+                <div id="CardPlayersResult"></div>
+                <div id="WonGamesResult"></div>
+
+                <!-------————————------------------———— Update ----------——————————--------——————————--———-->
                 <div id="MenuPlayer" style="text-align: center;">
                     <button id="addPlayerChose" class="btn btn-primary">Ajouter un joueur</button>
                     <button id="deletePlayerChose" class="btn btn-primary">Supprimer un joueur</button>
@@ -446,6 +542,8 @@
 <script>
     var hd = function(keep) {
         var funcs = new Array("#consultations", "#statistics", "#updates",
+                            "#VCDate","#LastPosCard", "#FirstPosCard","#PlayerCards", 
+                            "#CardPlayers","#WonGames",
                              "#CardTypeF", "#CardTypeResult", "#AddPlayer", "#AddCard",
                              "#AddGame", "#AddVersion", "#AddDeck", "#MenuCard",
                               "#MenuPlayer","#MenuVersion","#MenuDeck","#MenuGame",
@@ -546,7 +644,7 @@
             $("#welcome").html("<h3>Consultation</h3>")
             $("#PlayerNoGame").html("<h4>Les joueurs n'ayant aucune partie:</h4> <?php pWithoutGame() ?>");
             break;
-            //Stats
+        ////\\\\\\\\//////\\\\\\\\\\\\///////\\\\\//STATS/\\\\\\///////\\\\\\\\\\////////\\\\\\\////
         case ("pCards"):
             $("#statistics").show();
             $("#welcome").html("<h3>Statistiques</h3>")
@@ -572,7 +670,145 @@
             $("#welcome").html("<h3>Statistiques</h3>")
             $("#CardsFamily").html("<h4>Les familles de cartes:</h4> <?php cardsFamilies() ?>")
             break;
+        //////////////////////////////////////BONUS///////////////////////////////////
+        case ("nVCard"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#NVCard").html("<h4>Le nombre de versions par carte:</h4> <?php numberVersionsCards() ?>")
+            break;
+        case ("nPosCard"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#NPosCard").html("<h4>Le nombre de fois qu'une carte a été possédée:</h4> <?php numberPossessionsCard() ?>")
+            break;
+        case ("vCDate"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Mise à Jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'vDate';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#VCDate").show();
+            } else {
+                $("#VCDate").hide();
+                var val = "<?php if (isset($_GET['vDate'])) echo $_GET['vDate'] ?>"
+                var tab = "<?php if (isset($_GET['vDate'])) versionsAfterDate($_GET['vDate']) ?>"
+                $("#VCDateResult").html("<h4>Les Version crées après: " + val + "</h4>" + tab);
+                $("#VCDateResult").show();
+            }
+            break;
+        case ("lastPosCard"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Mise à Jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'cardID';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                console.log("here");
+                $("#LastPosCard").show();
+            } else {
+                console.log("here");
+                $("#LastPosCard").hide();
+                var val = "<?php if (isset($_GET['cardID'])) echo $_GET['cardID'] ?>"
+                var tab = "<?php if (isset($_GET['cardID'])) lastPossession($_GET['cardID']) ?>"
+                $("#LastPosCardResult").html("<h4>Le dernier possesseur de la carte d'id: " + val + "</h4>" + tab);
+                $("#LastPosCardResult").show();
+            }
+            break;
+        case ("firstPosCard"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Mise à Jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'cardID';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                console.log("here");
+                $("#FirstPosCard").show();
+            } else {
+                console.log("here");
+                $("#FirstPosCard").hide();
+                var val = "<?php if (isset($_GET['cardID'])) echo $_GET['cardID'] ?>"
+                var tab = "<?php if (isset($_GET['cardID'])) firstPossession($_GET['cardID']) ?>"
+                $("#FirstPosCardResult").html("<h4>Le premier possesseur de la carte d'id: " + val + "</h4>" + tab);
+                $("#FirstPosCardResult").show();
+            }
+            break;
+        case ("playerCards"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Mise à Jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'pseudo';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#PlayerCards").show();
+            } else {
+                $("#PlayerCards").hide();
+                var val = "<?php if (isset($_GET['pseudo'])) echo $_GET['pseudo'] ?>"
+                var tab = "<?php if (isset($_GET['pseudo'])) cardsPlayer($_GET['pseudo']) ?>"
+                $("#PlayerCardsResult").html("<h4>Les carte du joueur: " + val + "</h4>" + tab);
+                $("#PlayerCardsResult").show();
+            }
+            break;
+        case ("cardPlayers"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Mise à Jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'cardID';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#CardPlayers").show();
+            } else {
+                console.log("hhh")
+                $("#CardPlayers").hide();
+                var val = "<?php if (isset($_GET['cardID'])) echo $_GET['cardID'] ?>"
+                var tab = "<?php if (isset($_GET['cardID'])) cardPlayers($_GET['cardID']) ?>"
+                $("#CardPlayersResult").html("<h4>Les joueurs qui possèdent la carte d'id: " + val + "</h4>" + tab);
+                $("#CardPlayersResult").show();
+            }
+            break;
+        case ("wonGames"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Mise à Jour</h3>")
+            var type = "<?php if (isset($_GET['type'])) echo $_GET['type'] ?>"
+            var field = 'pseudo';
+            var url = window.location.href;
+            if (url.indexOf('&' + field + '=') == -1) {
+                $("#WonGames").show();
+            } else {
+                $("#WonGames").hide();
+                var val = "<?php if (isset($_GET['pseudo'])) echo $_GET['pseudo'] ?>"
+                var tab = "<?php if (isset($_GET['pseudo'])) winRate($_GET['pseudo']) ?>"
+                $("#WonGamesResult").html("<h4>Les parties jouées par: " + val + "</h4>" + tab);
+                $("#WonGamesResult").show();
+            }
+            break;
+        case ("lastPosCard"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#LastPosCard").show();
+            break;
+        case ("firstPosCard"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#FirstPosCard").show();
+            break;
+        case ("playerCards"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#PlayerCards").show();
+            break;
+        case ("cardPlayers"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#CardPlayers").show();
+            break;
+        case ("wonGames"):
+            $("#statistics").show();
+            $("#welcome").html("<h3>Statistiques</h3>")
+            $("#WonGames").show();
+            break;
 
+        //\\\\\\\\//////\\\\\\//////\\\////UPDATE//////\\\\\\/////\\\\\\\\////\\\\\\\\
         ////////////////////////////////// PLAYER /////////////////////////////////////
         case ("chosePlayer"):
             $("#updates").show();
@@ -615,6 +851,7 @@
                                 deletePlayer($_GET['playerPseudo']); ?>"
             }
             break;
+
         ////////////////////////////////// CARD /////////////////////////////////////
         case ("choseCard"):
             $("#updates").show();
@@ -877,7 +1114,8 @@
         
     }
 
-    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////NAVBAR/////////////////////////////////////
     $("consultation").click(function() {
         document.location.href = '?page=consultations'
@@ -890,8 +1128,39 @@
     $("update").click(function() {
         document.location.href = '?page=updates'
     })
+    ////////////////////////////////////////////////////////////////////////////
+    /////////////////////\\\\\\\\\\//Statistics\\\\//////\\\\\\\\\///\\\\\\\\\\\\/
 
+    $("#VCDateB").click(function() {
+        var vDate = document.forms['VCDateF'].elements['vDate'].value;
+        document.location.href = '?page=vCDate&vDate=' + vDate;
+    });
+    
+    $("#LastPosCardB").click(function() {
+        var cardID = document.forms['LastPosCardF'].elements['cardID'].value;
+        document.location.href = '?page=lastPosCard&cardID=' + cardID;
+    });
+    
+    $("#FirstPosCardB").click(function() {
+        var cardID = document.forms['FirstPosCardF'].elements['cardID'].value;
+        document.location.href = '?page=firstPosCard&cardID=' + cardID;
+    });
+    
+    $("#PlayerCardsB").click(function() {
+        var pseudo = document.forms['PlayerCardsF'].elements['pseudo'].value;
+        document.location.href = '?page=playerCards&pseudo=' + pseudo;
+    });
 
+    $("#CardPlayersB").click(function() {
+        var cardID = document.forms['CardPlayersF'].elements['cardID'].value;
+        document.location.href = '?page=cardPlayers&cardID=' + cardID;
+    });
+
+    $("#WonGamesB").click(function() {
+        var pseudo = document.forms['WonGamesF'].elements['pseudo'].value;
+        document.location.href = '?page=wonGames&pseudo=' + pseudo;
+    });
+    
 
     ////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// PLAYER ///////////////////////////////////
@@ -1128,6 +1397,8 @@
         alert("The deck contains a card");
     });
 
+
+
 </script>
 
 <!-- Le styles -->
@@ -1157,17 +1428,16 @@
     #req {
         padding: 5px;
         width: 50%;
+        font-size: 16px;
+        line-height: 20px;
 
-    }
-    #req:h5 {
-        color: #fff;
     }
     h4 {
         color: #4b4b4b;
     }
 
     h5 {
-        color: black;
+        color: #a5a5a5;
     }
 
     footer {
